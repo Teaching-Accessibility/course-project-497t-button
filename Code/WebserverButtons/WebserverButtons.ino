@@ -155,16 +155,25 @@ void loop()
             
             // Web Page Heading
             client.println("<body>");
-            client.println("<h1>ESP32 Web Server</h1>");
+
+            client.println("<div class = \"Container\">");
+
+            client.println("<div class = \"TopContainer\">");
+            client.println("<h1 class = \"TopText\">ESP32 Web Server")
+            client.println("<a class = \"InnerText\"><br/>Linkamals Button Project</a></h1>")
+            client.println("</div>");
             
+            client.println("<div class = \"ControlContainer\">");
+
             // Display current state, and ON/OFF buttons for GPIO 26  
-            client.println("<p>GPIO 2 - State " + output2State + "</p>");
+            client.println("<div class = \"InnerContainer\">");
+            client.println("<p class = \"OnOff\">GPIO 2 - State " + output2State + "</p>");
     
             if (output2State=="off") 
             {
               client.println("<p>");
               client.println("<a href=\"/2/on\">");
-              client.println("<button class=\"button\">");
+              client.println("<button class=\"glowingButton\">");
               client.println("ON");
               client.println("</button>");
               client.println("</a>");
@@ -174,21 +183,22 @@ void loop()
             {
               client.println("<p>");
               client.println("<a href=\"/2/off\">");
-              client.println("<button class=\"button button2\">");
+              client.println("<button class=\"glowingButton\">");
               client.println("OFF");
               client.println("</button>");
               client.println("</a>");
               client.println("</p>");
             } 
-               
-            // Display current state, and ON/OFF buttons for GPIO 27  
-            client.println("<p>GPIO 3 - State " + output3State + "</p>");
-            // If the output27State is off, it displays the ON button       
+            client.println("</div>");
+
+            // Display current state, and ON/OFF buttons for GPIO 27 
+            client.println("<div class = \"InnerContainer\">"); 
+            client.println("<p class = \"OnOff\">GPIO 3 - State " + output3State + "</p>");      
             if (output3State=="off") 
             {
               client.println("<p>");
               client.println("<a href=\"/3/on\">");
-              client.println("<button class=\"button\">");
+              client.println("<button class=\"glowingButton\">");
               client.println("ON");
               client.println("</button>");
               client.println("</a>");
@@ -198,21 +208,23 @@ void loop()
             {
               client.println("<p>");
               client.println("<a href=\"/3/off\">");
-              client.println("<button class=\"button button2\">");
+              client.println("<button class=\"glowingButton\">");
               client.println("OFF");
               client.println("</button>");
               client.println("</a>");
               client.println("</p>");
             }
-
+            client.println("</div>");
+            
             // Display current state, and ON/OFF buttons for GPIO 27  
-            client.println("<p>GPIO 4 - State " + output4State + "</p>");
+            client.println("<div class = \"InnerContainer\">");
+            client.println("<p class = \"OnOff\">GPIO 4 - State " + output4State + "</p>");
     
             if (output4State=="off") 
             {
               client.println("<p>");
               client.println("<a href=\"/4/on\">");
-              client.println("<button class=\"button\">");
+              client.println("<button class=\"glowingButton\">");
               client.println("ON");
               client.println("</button>");
               client.println("</a>");
@@ -222,12 +234,15 @@ void loop()
             {
               client.println("<p>");
               client.println("<a href=\"/4/off\">");
-              client.println("<button class=\"button button2\">");
+              client.println("<button class=\"glowingButton\">");
               client.println("OFF");
               client.println("</button>");
               client.println("</a>");
               client.println("</p>");
             }
+            client.println("</div>");
+            client.println("</div>");
+            client.println("</div>");
 
             client.println("</body>");
             client.println("</html>");
@@ -263,31 +278,111 @@ void loop()
 
 String GetStyles()
 {
-  String styles = "<style>"
-                    "html"
-                    "{"
-                      "font-family: Helvetica;"
-                      "display: inline-block;"
-                      "margin: 0px auto;"
-                      "text-align: center;"
+String styles = "<style>"
+                    ".Container {"
+                        "display: flex;"
+                        "flex-direction: column;"
+                        "align-items: center;"
+                        "width: 100vw;"
+                        "height: 100vh;"
+                        "position: absolute;"
                     "}"
-
-                    ".button"
-                    "{"
-                      "background-color: #4CAF50;"
-                      "border: none;"
-                      "color: white;"
-                      "padding: 16px 40px;"
-                      "text-decoration: none;"
-                      "font-size: 30px;"
-                      "margin: 2px;"
-                      "cursor: pointer;"
+                    ".TopContainer {"
+                        "background-color: black;"
+                        "width: 100%;"
+                        "height: 20vh;"
+                        "margin-left: -1vw;"
+                        "margin-top: -1.5vh;"
+                        "display: flex;"
+                        "flex-direction: column;"
+                        "justify-content: center;"
                     "}"
-
-                  ".button2"
-                  "{"
-                    "background-color: #555555;"
-                  "}"
+                    ".TopText {"
+                        "color: white;"
+                        "font-size: 4vmax;"
+                    "}"
+                    ".ControlContainer {"
+                        "display: flex;"
+                        "flex-direction: row;"
+                        "justify-content: center;"
+                        "gap: 3vw;"
+                        "padding: 2vw;"
+                        "background-color: #303030;"
+                        "color: white;"
+                        "margin-top: 25vh;"
+                        "border-radius: 20px;"
+                    "}"
+                    ".InnerContainer {"
+                        "display: flex;"
+                        "flex-direction: column;"
+                    "}"
+                    ".OnOff {"
+                        "font-weight: bolder;"
+                    "}"
+                    "html {"
+                        "background-color: #ffffff;"
+                        "font-family: sans-serif;"
+                        "display: block;"
+                        "text-align: center;"
+                        "overflow-y: hidden;"
+                        "overflow-x: hidden;"
+                    "}"
+                    ".InnerText {"
+                    "color: #d0d0d0;"
+                    "font-size: 2vmax;"
+                    "}"
+                    ".glowingButton {"
+                        "transform: translate(-0%, 0%);"
+                        "text-align: center;"
+                        "padding: 0px;"
+                        "padding-left: 2vw;"
+                        "padding-right: 2vw;"
+                        "line-height:  6vh;"
+                        "color: #d0d0d0;"
+                        "background: none;"
+                        "font-size: 1.5vh;"
+                        "text-transform: uppercase;"
+                        "text-decoration: none;"
+                        "box-sizing: border-box;"
+                        "background-size: 0%;"
+                        "background-size: 400%;"
+                        "backdrop-filter: blur(30px);"
+                        "border-radius: 5vw;"
+                        "border: 0.1vh solid #8a8a8a;"
+                    "}"
+                    ".glowingButton:hover {"
+                        "animation: animate 8s linear infinite;"
+                        "cursor: pointer;"
+                        "color: transparent;"
+                    "}"
+                    "@keyframes animate {"
+                        "0% {"
+                            "background-position: 0%;"
+                        "}"
+                        "100% {"
+                            "background-position: 400%;"
+                        "}"
+                    "}"
+                    ".glowingButton::before {"
+                        "content: '';"
+                        "text-align: center;"
+                        "position: absolute;"
+                        "top: -5px;"
+                        "left: -5px;"
+                        "right: -5px;"
+                        "bottom: -5px;"
+                        "z-index: -1;"
+                        "background: linear-gradient(90deg, #03a9f4, #03a9f4, #f441a5, #ffeb3b, #03a9f4);"
+                        "background-size: 400%;"
+                        "border-radius: 30px;"
+                        "opacity: 0;"
+                        "transition: 0.5s;"
+                    "}"
+                    ".glowingButton:hover:before {"
+                        "filter: blur(20px);"
+                        "opacity: 1;"
+                        "animation: animate 8s linear infinite;"
+                    "}"
                 "</style>";
 
   return styles;

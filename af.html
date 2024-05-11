@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP32 Web Server Control Panel</title>
+    <link rel="icon" href="data:,">
+    <style>
+        .Container
+        {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+        }
+        .TopContainer
+        {
+            background-color: black;
+            width: 100%;
+            height: 25vh;
+            margin-left: -1vw;
+            margin-top: -1.5vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .TopText
+        {
+            color: white;
+            font-size: 4vmax;
+        }
+        .InnerText
+        {
+            color: #d0d0d0;
+            font-size: 2vmax;
+        }
+        .ControlContainer
+        {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 3vw;
+            padding: 2vw;
+            background-color: #303030;
+            color: white;
+            margin-top: 20vh;
+            border-radius: 20px;
+        }
+
+        .InnerContainer
+        {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .OnOff
+        {
+            font-weight: bolder;
+        }
+
+        html 
+        {
+            background-color: white;
+            font-family: sans-serif;
+            display: block;
+            text-align: center;
+            overflow-y: hidden;
+            overflow-x: hidden;
+        }
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 16px 40px;
+            text-decoration: none;
+            font-size: 30px;
+            margin: 2px;
+            cursor: pointer;
+        }
+        .button2 
+        {
+            background-color: red;
+        }
+        .glowingButton
+        {
+            transform: translate(-0%, 0%);
+            text-align: center;
+            padding: 0px;
+            padding-left: 2vw;
+            padding-right: 2vw;
+            line-height:  6vh;
+            color: #d0d0d0;
+            background: none;
+            font-size: 1.5vh;
+            text-transform: uppercase;
+            text-decoration: none;
+            box-sizing: border-box;
+            background-size: 0%;
+            background-size: 400%;
+            backdrop-filter: blur(30px);
+            border-radius: 5vw;
+            border: 0.1vh solid #8a8a8a;
+        }
+
+        .glowingButton:hover
+        {
+            animation: animate 8s linear infinite;
+            cursor: pointer;
+            color: transparent;
+        }
+        @keyframes animate
+        {
+            0%
+            {
+                background-position: 0%;
+            }
+            100%
+            {
+                background-position: 400%;
+            }
+        }
+
+        .glowingButton::before
+        {
+            content: '';
+            text-align: center;
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            z-index: -1;    
+            background: linear-gradient(90deg, #03a9f4, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+            background-size: 400%;
+            border-radius: 30px;
+            opacity: 0;
+            transition: 0.5s;
+        }
+        .glowingButton:hover:before
+        {
+            filter: blur(20px);
+            opacity: 1;
+            animation: animate 8s linear infinite;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class = "Container">
+        <div class = "TopContainer">
+            <h1 class = "TopText">ESP32 Web Server
+            <a class = "InnerText"><br/>Linkamals Button Project</a></h1>
+        </div>
+        <div class = "ControlContainer">
+            <div class = "InnerContainer">
+                <p>GPIO 2 - State: <span id="gpio2" class = "OnOff">off</span></p>
+                <button onclick="toggleState('gpio2')" class="glowingButton button2">Toggle GPIO 2</button>
+            </div>
+
+            <div class = "InnerContainer">
+                <p>GPIO 3 - State: <span id="gpio3" class = "OnOff">off</span></p>
+                <button onclick="toggleState('gpio3')" class="glowingButton">Toggle GPIO 3</button>
+            </div>
+
+            <div class = "InnerContainer">
+                <p>GPIO 4 - State: <span id="gpio4" class = "OnOff">off</span></p>
+                <button onclick="toggleState('gpio4')" class="glowingButton">Toggle GPIO 4</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function toggleState(gpio) {
+            var element = document.getElementById(gpio);
+            if (element.innerText === "off") {
+                element.innerText = "on";
+            } else {
+                element.innerText = "off";
+            }
+        }
+    </script>
+</body>
+</html>
