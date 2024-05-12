@@ -159,8 +159,8 @@ void loop()
             client.println("<div class = \"Container\">");
 
             client.println("<div class = \"TopContainer\">");
-            client.println("<h1 class = \"TopText\">ESP32 Web Server")
-            client.println("<a class = \"InnerText\"><br/>Linkamals Button Project</a></h1>")
+            client.println("<h1 class = \"TopText\">ESP32 Web Server");
+            client.println("<a class = \"InnerText\"><br/>Linkamals Button Project</a></h1>");
             client.println("</div>");
             
             client.println("<div class = \"ControlContainer\">");
