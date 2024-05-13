@@ -9,7 +9,7 @@
 *********/
 
 #include <WiFi.h>
-#include <button.h>
+#include <C:\Users\jackc\button project\course-project-497t-button\Code\WebserverButtons\button.h>
 
 // Replace with your network credentials
 const char* ssid = "TestNet_24";
@@ -118,7 +118,7 @@ void loop()
             {
               Serial.println("GPIO 2 off");
               output2State = "off";
-              deactivatePin(output2);
+              deactivatePin();
             } 
             else if (header.indexOf("GET /3/on") >= 0) 
             {
@@ -131,7 +131,7 @@ void loop()
             {
               Serial.println("GPIO 3 off");
               output3State = "off";
-              deactivatePin(output3);
+              deactivatePin();
             } 
             else if (header.indexOf("GET /4/on") >= 0) 
             {
@@ -144,7 +144,7 @@ void loop()
             {
               Serial.println("GPIO 4 off");
               output4State = "off";
-              deactivatePin(output4);
+              deactivatePin();
             }
 
             // Display the HTML web page
