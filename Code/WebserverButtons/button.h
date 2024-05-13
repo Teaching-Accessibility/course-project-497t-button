@@ -8,7 +8,7 @@ int buttonTimeoutTime = 150;
 // Switches setPin value to new pin number
 void switchPin(int pinNum){
   setPin = pinNum;
-  Serial.println("\n\nswitchPin\noutput pin set to: " + setPin);
+  Serial.println("\nSwitchPin\noutput pin set to: " + setPin);
 }
 
 // Function that activates a pin as long as the pin number is valid

@@ -114,40 +114,46 @@ void loop()
             */
             if (header.indexOf("GET /2/on") >= 0) 
             {
+              Serial.println("GPIO 2 on");
               switchPin(output2);
 
               if(output3State == "on" || output4State == "on"){ // turn others off, only one at a time
+                Serial.println("turning off 3 or 4");
                 output3State = "off";
                 output4State = "off";
               }
 
               output2State = "on";
             } 
-            else if (header.indexOf("GET /2/off") >= 0) output2State = "off";
+            //else if (header.indexOf("GET /2/off") >= 0) output2State = "off";
             else if (header.indexOf("GET /3/on") >= 0) 
             {
+              Serial.println("GPIO 3 On");
               switchPin(output3);
 
               if(output2State == "on" || output4State == "on"){ // turn others off, only one at a time
+                Serial.println("turning off 2 or 4");
                 output2State = "off";
                 output4State = "off";
               }
 
               output3State = "on";
             } 
-            else if (header.indexOf("GET /3/off") >= 0) output3State = "off";
+            //else if (header.indexOf("GET /3/off") >= 0) output3State = "off";
             else if (header.indexOf("GET /4/on") >= 0) 
             {
+              Serial.println("GPIO 4 on");
               switchPin(output4);
 
               if(output2State == "on" || output3State == "on"){ // turn others off, only one at a time
+                Serial.println("turning off 2 or 3");
                 output2State = "off";
                 output3State = "off";
               }
 
               output4State = "on";
             } 
-            else if (header.indexOf("GET /4/off") >= 0) output4State = "off";
+            //else if (header.indexOf("GET /4/off") >= 0) output4State = "off";
 
             /*
              * Button Logic
@@ -195,9 +201,9 @@ void loop()
             if (output2State=="off") 
             {
               client.println("<p>");
-              client.println("<a href=\"/2/off\">");
+              client.println("<a href=\"/2/on\">");
               client.println("<button class=\"glowingButton\">");
-              client.println("OFF");
+              client.println("ON");
               client.println("</button>");
               client.println("</a>");
               client.println("</p>");
@@ -205,9 +211,9 @@ void loop()
             else 
             {
               client.println("<p>");
-              client.println("<a href=\"/2/on\">");
+              client.println("<a href=\"/2/off\">");
               client.println("<button class=\"glowingButton\">");
-              client.println("ON");
+              client.println("OFF");
               client.println("</button>");
               client.println("</a>");
               client.println("</p>");
@@ -220,9 +226,9 @@ void loop()
             if (output3State=="off") 
             {
               client.println("<p>");
-              client.println("<a href=\"/3/off\">");
+              client.println("<a href=\"/3/on\">");
               client.println("<button class=\"glowingButton\">");
-              client.println("OFF");
+              client.println("ON");
               client.println("</button>");
               client.println("</a>");
               client.println("</p>");
@@ -230,9 +236,9 @@ void loop()
             else 
             {
               client.println("<p>");
-              client.println("<a href=\"/3/on\">");
+              client.println("<a href=\"/3/off\">");
               client.println("<button class=\"glowingButton\">");
-              client.println("ON");
+              client.println("OFF");
               client.println("</button>");
               client.println("</a>");
               client.println("</p>");
@@ -246,9 +252,9 @@ void loop()
             if (output4State=="off") 
             {
               client.println("<p>");
-              client.println("<a href=\"/4/off\">");
+              client.println("<a href=\"/4/on\">");
               client.println("<button class=\"glowingButton\">");
-              client.println("OFF");
+              client.println("ON");
               client.println("</button>");
               client.println("</a>");
               client.println("</p>");
@@ -256,9 +262,9 @@ void loop()
             else 
             {
               client.println("<p>");
-              client.println("<a href=\"/4/on\">");
+              client.println("<a href=\"/4/off\">");
               client.println("<button class=\"glowingButton\">");
-              client.println("ON");
+              client.println("OFF");
               client.println("</button>");
               client.println("</a>");
               client.println("</p>");
