@@ -8,6 +8,7 @@ int buttonTimeoutTime = 150;
 // Switches setPin value to new pin number
 void switchPin(int pinNum){
   setPin = pinNum;
+  Serial.println("\n\nswitchPin\noutput pin set to: " + setPin);
 }
 
 // Function that activates a pin as long as the pin number is valid
@@ -18,6 +19,7 @@ void activatePin(){
   else{
     Serial.println("Invalid pin number set on activation");
   }
+  return;
 }
 
 // Function that deactivates a pin as long as the pin number is valid
@@ -28,6 +30,7 @@ void deactivatePin(){
   else{
     Serial.println("Invalid pin number set on deactivate");
   }
+  return;
 }
 
 // changes timeout time
@@ -35,6 +38,7 @@ void changeTimeout(int newTime){
   if(newTime >= 150){
     buttonTimeoutTime = newTime;
   }
+  return;
 }
 
 // a standard default button pressed function
@@ -48,6 +52,7 @@ void buttonPressedStandard(){
   }
 
   deactivatePin();
+  return;
 }
 
 // when the button is pressed in sequential mode. It will count the presses and select that pin
@@ -77,5 +82,6 @@ void buttonPressedSequential(){
   }
 
   deactivatePin();
+  return;
 }
 

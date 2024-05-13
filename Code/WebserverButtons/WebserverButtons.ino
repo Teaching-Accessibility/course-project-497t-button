@@ -9,7 +9,7 @@
 *********/
 
 #include <WiFi.h>
-#include <button.h>
+#include "button.h"
 
 // Replace with your network credentials
 const char* ssid = "TestNet_24";
@@ -153,7 +153,7 @@ void loop()
              * Button Logic
             */
             // button is pressed (pin 7 = input pin)
-            if(digitalRead(7) == LOW)
+            /*if(digitalRead(7) == LOW)
             {
               if(sequentialMode == true){
                 buttonPressedSequential();
@@ -162,7 +162,7 @@ void loop()
                 buttonPressedStandard();
               }
             }
-
+            */
             /*
              * Webpage HTML Code
             */
@@ -290,12 +290,13 @@ void loop()
         }
       }
     }
-    // Clear the header variable
-    header = "";
-    // Close the connection
-    client.stop();
-    Serial.println("Client disconnected.");
-    Serial.println("");
+  
+  // Clear the header variable
+  header = "";
+  // Close the connection
+  client.stop();
+  Serial.println("Client disconnected.");
+  Serial.println("");
   }
 }
 
