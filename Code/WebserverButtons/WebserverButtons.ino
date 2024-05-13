@@ -32,6 +32,9 @@ unsigned long currentTime = millis();
 unsigned long previousTime = 0; 
 const long timeoutTime = 2000;
 
+// Boolean variables for modes, default: off
+bool sequentialMode = false;
+
 void setup() 
 {
   //init port, set data rate (baud rate -- bits/second)
@@ -105,44 +108,63 @@ void loop()
             client.println("Connection: close");
             client.println();
             
-            // turns the GPIOs on and off based on the request
+            /*
+             * Pin switching and state swapping logic
+            */
             if (header.indexOf("GET /2/on") >= 0) 
             {
-              Serial.println("GPIO 2 on");
+              switchPin(output2);
+
+              if(output3State == "on" || output4State == "on"){ // turn others off, only one at a time
+                output3State = "off";
+                output4State = "off";
+              }
+
               output2State = "on";
-              digitalWrite(output2, LOW);
             } 
-            else if (header.indexOf("GET /2/off") >= 0) 
-            {
-              Serial.println("GPIO 2 off");
-              output2State = "off";
-              digitalWrite(output2, HIGH);
-            } 
+            else if (header.indexOf("GET /2/off") >= 0) output2State = "off";
             else if (header.indexOf("GET /3/on") >= 0) 
             {
-              Serial.println("GPIO 3 on");
+              switchPin(output3);
+
+              if(output2State == "on" || output4State == "on"){ // turn others off, only one at a time
+                output2State = "off";
+                output4State = "off";
+              }
+
               output3State = "on";
-              digitalWrite(output3, LOW);
             } 
-            else if (header.indexOf("GET /3/off") >= 0) 
-            {
-              Serial.println("GPIO 3 off");
-              output3State = "off";
-              digitalWrite(output3, HIGH);
-            } 
+            else if (header.indexOf("GET /3/off") >= 0) output3State = "off";
             else if (header.indexOf("GET /4/on") >= 0) 
             {
-              Serial.println("GPIO 4 on");
+              switchPin(output4);
+
+              if(output2State == "on" || output3State == "on"){ // turn others off, only one at a time
+                output2State = "off";
+                output3State = "off";
+              }
+
               output4State = "on";
-              digitalWrite(output4, LOW);
             } 
-            else if (header.indexOf("GET /4/off") >= 0) 
+            else if (header.indexOf("GET /4/off") >= 0) output4State = "off";
+
+            /*
+             * Button Logic
+            */
+            // button is pressed (pin 7 = input pin)
+            if(digitalRead(7) == LOW)
             {
-              Serial.println("GPIO 4 off");
-              output4State = "off";
-              digitalWrite(output4, HIGH);
+              if(sequentialMode == true){
+                buttonPressedSequential();
+              }
+              else{
+                buttonPressedStandard();
+              }
             }
 
+            /*
+             * Webpage HTML Code
+            */
             // Display the HTML web page
             client.println("<!DOCTYPE html>");
 
@@ -172,9 +194,9 @@ void loop()
             if (output2State=="off") 
             {
               client.println("<p>");
-              client.println("<a href=\"/2/on\">");
+              client.println("<a href=\"/2/off\">");
               client.println("<button class=\"glowingButton\">");
-              client.println("ON");
+              client.println("OFF");
               client.println("</button>");
               client.println("</a>");
               client.println("</p>");
@@ -182,9 +204,9 @@ void loop()
             else 
             {
               client.println("<p>");
-              client.println("<a href=\"/2/off\">");
+              client.println("<a href=\"/2/on\">");
               client.println("<button class=\"glowingButton\">");
-              client.println("OFF");
+              client.println("ON");
               client.println("</button>");
               client.println("</a>");
               client.println("</p>");
@@ -197,9 +219,9 @@ void loop()
             if (output3State=="off") 
             {
               client.println("<p>");
-              client.println("<a href=\"/3/on\">");
+              client.println("<a href=\"/3/off\">");
               client.println("<button class=\"glowingButton\">");
-              client.println("ON");
+              client.println("OFF");
               client.println("</button>");
               client.println("</a>");
               client.println("</p>");
@@ -207,9 +229,9 @@ void loop()
             else 
             {
               client.println("<p>");
-              client.println("<a href=\"/3/off\">");
+              client.println("<a href=\"/3/on\">");
               client.println("<button class=\"glowingButton\">");
-              client.println("OFF");
+              client.println("ON");
               client.println("</button>");
               client.println("</a>");
               client.println("</p>");
@@ -223,9 +245,9 @@ void loop()
             if (output4State=="off") 
             {
               client.println("<p>");
-              client.println("<a href=\"/4/on\">");
+              client.println("<a href=\"/4/off\">");
               client.println("<button class=\"glowingButton\">");
-              client.println("ON");
+              client.println("OFF");
               client.println("</button>");
               client.println("</a>");
               client.println("</p>");
@@ -233,9 +255,9 @@ void loop()
             else 
             {
               client.println("<p>");
-              client.println("<a href=\"/4/off\">");
+              client.println("<a href=\"/4/on\">");
               client.println("<button class=\"glowingButton\">");
-              client.println("OFF");
+              client.println("ON");
               client.println("</button>");
               client.println("</a>");
               client.println("</p>");
