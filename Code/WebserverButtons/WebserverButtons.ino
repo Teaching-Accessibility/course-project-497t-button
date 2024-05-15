@@ -9,6 +9,7 @@
 *********/
 
 #include <WiFi.h>
+#include "button.h"
 
 // Replace with your network credentials
 const char* ssid = "TestNet_24";
@@ -27,10 +28,14 @@ String output4State = "off";
 const int output2 = 2;
 const int output3 = 3;
 const int output4 = 4;
+const int ButtonSwitchPin = 7;
 
 unsigned long currentTime = millis();
 unsigned long previousTime = 0; 
 const long timeoutTime = 2000;
+
+// Boolean variables for modes, default: off
+bool sequentialMode = false;
 
 void setup() 
 {
@@ -41,6 +46,7 @@ void setup()
   pinMode(output2, OUTPUT);
   pinMode(output3, OUTPUT);
   pinMode(output4, OUTPUT);
+  pinMode(ButtonSwitchPin, INPUT);
 
   // turn off pins asssociated with output[2..4]
   // outputs are active low
@@ -69,10 +75,28 @@ void loop()
 {
   // Listen for incoming clients
   WiFiClient client = server.available();   
-
+    /*
+      * Button Logic
+    */
+    // button is pressed (pin 7 = input pin)
+    if(digitalRead(ButtonSwitchPin) == LOW)
+    {
+      Serial.print("press detected: ");
+      if(sequentialMode == true){
+        Serial.println("Sequential mode");
+        buttonPressedSequential();
+      }
+      else{
+        Serial.println("Standard mode");
+        buttonPressedStandard();
+      }
+    }
   //handle client connection (invoked on connect)
   if (client) 
-  {                           
+  {           
+
+
+
     //currentLine holds incoming client data
     currentTime = millis();
     previousTime = currentTime;
@@ -105,44 +129,57 @@ void loop()
             client.println("Connection: close");
             client.println();
             
-            // turns the GPIOs on and off based on the request
+            /*
+             * Pin switching and state swapping logic
+            */
             if (header.indexOf("GET /2/on") >= 0) 
             {
               Serial.println("GPIO 2 on");
+              switchPin(output2);
+
+              if(output3State == "on" || output4State == "on"){ // turn others off, only one at a time
+                Serial.println("turning off 3 or 4");
+                output3State = "off";
+                output4State = "off";
+              }
+
               output2State = "on";
-              digitalWrite(output2, LOW);
             } 
-            else if (header.indexOf("GET /2/off") >= 0) 
-            {
-              Serial.println("GPIO 2 off");
-              output2State = "off";
-              digitalWrite(output2, HIGH);
-            } 
+            //else if (header.indexOf("GET /2/off") >= 0) output2State = "off";
             else if (header.indexOf("GET /3/on") >= 0) 
             {
-              Serial.println("GPIO 3 on");
+              Serial.println("GPIO 3 On");
+              switchPin(output3);
+
+              if(output2State == "on" || output4State == "on"){ // turn others off, only one at a time
+                Serial.println("turning off 2 or 4");
+                output2State = "off";
+                output4State = "off";
+              }
+
               output3State = "on";
-              digitalWrite(output3, LOW);
             } 
-            else if (header.indexOf("GET /3/off") >= 0) 
-            {
-              Serial.println("GPIO 3 off");
-              output3State = "off";
-              digitalWrite(output3, HIGH);
-            } 
+            //else if (header.indexOf("GET /3/off") >= 0) output3State = "off";
             else if (header.indexOf("GET /4/on") >= 0) 
             {
               Serial.println("GPIO 4 on");
-              output4State = "on";
-              digitalWrite(output4, LOW);
-            } 
-            else if (header.indexOf("GET /4/off") >= 0) 
-            {
-              Serial.println("GPIO 4 off");
-              output4State = "off";
-              digitalWrite(output4, HIGH);
-            }
+              switchPin(output4);
 
+              if(output2State == "on" || output3State == "on"){ // turn others off, only one at a time
+                Serial.println("turning off 2 or 3");
+                output2State = "off";
+                output3State = "off";
+              }
+
+              output4State = "on";
+            } 
+            //else if (header.indexOf("GET /4/off") >= 0) output4State = "off";
+
+
+            
+            /*
+             * Webpage HTML Code
+            */
             // Display the HTML web page
             client.println("<!DOCTYPE html>");
 
@@ -267,12 +304,13 @@ void loop()
         }
       }
     }
-    // Clear the header variable
-    header = "";
-    // Close the connection
-    client.stop();
-    Serial.println("Client disconnected.");
-    Serial.println("");
+  
+  // Clear the header variable
+  header = "";
+  // Close the connection
+  client.stop();
+  Serial.println("Client disconnected.");
+  Serial.println("");
   }
 }
 
