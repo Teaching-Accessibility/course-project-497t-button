@@ -20,15 +20,18 @@ WiFiServer server(80);
 //store HTTP request
 String header;
 
-String output2State = "off";
-String output3State = "off";
-String output4State = "off";
+String button1State = "off";
+String button2State = "off";
+String button3State = "off";
 
 // Assign output variables to GPIO pins
-const int output2 = 2;
-const int output3 = 3;
-const int output4 = 4;
-const int ButtonSwitchPin = 7;
+const int button1 = 2;
+const int button2 = 3;
+const int button3 = 4;
+const int button4 = 5;
+const int button5 = 6;
+const int Switch1 = 7;
+const int SwitLed = 8;
 
 unsigned long currentTime = millis();
 unsigned long previousTime = 0; 
@@ -43,16 +46,23 @@ void setup()
   Serial.begin(115200);
 
   // Initialize the output variables as pin outputs
-  pinMode(output2, OUTPUT);
-  pinMode(output3, OUTPUT);
-  pinMode(output4, OUTPUT);
-  pinMode(ButtonSwitchPin, INPUT);
+  pinMode(button1, OUTPUT);
+  pinMode(button2, OUTPUT);
+  pinMode(button3, OUTPUT);
+  pinMode(button4, OUTPUT);
+  pinMode(button5, OUTPUT);
+  pinMode(Switch1, INPUT_PULLUP);
+  pinMode(SwitLed, OUTPUT);
 
   // turn off pins asssociated with output[2..4]
   // outputs are active low
-  digitalWrite(output2, HIGH);
-  digitalWrite(output3, HIGH);
-  digitalWrite(output4, HIGH);
+  digitalWrite(button1, HIGH);
+  digitalWrite(button2, HIGH);
+  digitalWrite(button3, HIGH);
+  digitalWrite(button4, HIGH);
+  digitalWrite(button5, HIGH);
+  // init switch light to off, it is connected to comm on the other side
+  digitalWrite(SwitLed, LOW);
 
   // Connect to Wi-Fi network with SSID and password
   Serial.print("Connecting to ");
@@ -79,7 +89,7 @@ void loop()
       * Button Logic
     */
     // button is pressed (pin 7 = input pin)
-    if(digitalRead(ButtonSwitchPin) == LOW)
+    if(digitalRead(Switch1) == LOW)
     {
       Serial.print("press detected: ");
       if(sequentialMode == true){
@@ -132,46 +142,46 @@ void loop()
             /*
              * Pin switching and state swapping logic
             */
-            if (header.indexOf("GET /2/on") >= 0) 
+            if (header.indexOf("GET /1/on") >= 0) 
             {
-              Serial.println("GPIO 2 on");
-              switchPin(output2);
+              Serial.println("Button1 on");
+              switchPin(button1);
 
-              if(output3State == "on" || output4State == "on"){ // turn others off, only one at a time
-                Serial.println("turning off 3 or 4");
-                output3State = "off";
-                output4State = "off";
+              if(button3State == "on" || button2State == "on"){ // turn others off, only one at a time
+                Serial.println("turning off 2 or 3");
+                button2State = "off";
+                button3State = "off";
               }
 
-              output2State = "on";
+              button1State = "on";
             } 
             //else if (header.indexOf("GET /2/off") >= 0) output2State = "off";
-            else if (header.indexOf("GET /3/on") >= 0) 
+            else if (header.indexOf("GET /2/on") >= 0) 
             {
-              Serial.println("GPIO 3 On");
-              switchPin(output3);
+              Serial.println("Button 2 On");
+              switchPin(button2);
 
-              if(output2State == "on" || output4State == "on"){ // turn others off, only one at a time
-                Serial.println("turning off 2 or 4");
-                output2State = "off";
-                output4State = "off";
+              if(button1State == "on" || button3State == "on"){ // turn others off, only one at a time
+                Serial.println("turning off 1 or 3");
+                button1State = "off";
+                button3State = "off";
               }
 
-              output3State = "on";
+              button2State = "on";
             } 
             //else if (header.indexOf("GET /3/off") >= 0) output3State = "off";
-            else if (header.indexOf("GET /4/on") >= 0) 
+            else if (header.indexOf("GET /3/on") >= 0) 
             {
-              Serial.println("GPIO 4 on");
-              switchPin(output4);
+              Serial.println("button3 on");
+              switchPin(button3);
 
-              if(output2State == "on" || output3State == "on"){ // turn others off, only one at a time
-                Serial.println("turning off 2 or 3");
-                output2State = "off";
-                output3State = "off";
+              if(button1State == "on" || button2State == "on"){ // turn others off, only one at a time
+                Serial.println("turning off 1 or 2");
+                button1State = "off";
+                button2State = "off";
               }
 
-              output4State = "on";
+              button3State = "on";
             } 
             //else if (header.indexOf("GET /4/off") >= 0) output4State = "off";
 
@@ -196,17 +206,42 @@ void loop()
             client.println("<div class = \"Container\">");
 
             client.println("<div class = \"TopContainer\">");
-            client.println("<h1 class = \"TopText\">ESP32 Web Server");
-            client.println("<a class = \"InnerText\"><br/>Linkamals Button Project</a></h1>");
+            client.println("<h1 class = \"TopText\">Button Switcher");
+            client.println("<a class = \"InnerText\"><br/>Linkimals Button Project</a></h1>");
             client.println("</div>");
             
             client.println("<div class = \"ControlContainer\">");
 
             // Display current state, and ON/OFF buttons for GPIO 26  
             client.println("<div class = \"InnerContainer\">");
-            client.println("<p class = \"OnOff\">GPIO 2 - State " + output2State + "</p>");
+            client.println("<p class = \"OnOff\">Button 1 - State " + button1State + "</p>");
     
-            if (output2State=="off") 
+            if (button1State=="off") 
+            {
+              client.println("<p>");
+              client.println("<a href=\"/1/on\">");
+              client.println("<button class=\"glowingButton\">");
+              client.println("ON");
+              client.println("</button>");
+              client.println("</a>");
+              client.println("</p>");
+            } 
+            else 
+            {
+              client.println("<p>");
+              client.println("<a href=\"/1/off\">");
+              client.println("<button class=\"glowingButton\">");
+              client.println("OFF");
+              client.println("</button>");
+              client.println("</a>");
+              client.println("</p>");
+            } 
+            client.println("</div>");
+
+            // Display current state, and ON/OFF buttons for GPIO 27 
+            client.println("<div class = \"InnerContainer\">"); 
+            client.println("<p class = \"OnOff\">Button 2 - State " + button2State + "</p>");      
+            if (button2State=="off") 
             {
               client.println("<p>");
               client.println("<a href=\"/2/on\">");
@@ -225,13 +260,14 @@ void loop()
               client.println("</button>");
               client.println("</a>");
               client.println("</p>");
-            } 
+            }
             client.println("</div>");
-
-            // Display current state, and ON/OFF buttons for GPIO 27 
-            client.println("<div class = \"InnerContainer\">"); 
-            client.println("<p class = \"OnOff\">GPIO 3 - State " + output3State + "</p>");      
-            if (output3State=="off") 
+            
+            // Display current state, and ON/OFF buttons for GPIO 27  
+            client.println("<div class = \"InnerContainer\">");
+            client.println("<p class = \"OnOff\">button 3 - State " + button3State + "</p>");
+    
+            if (button3State=="off") 
             {
               client.println("<p>");
               client.println("<a href=\"/3/on\">");
@@ -245,32 +281,6 @@ void loop()
             {
               client.println("<p>");
               client.println("<a href=\"/3/off\">");
-              client.println("<button class=\"glowingButton\">");
-              client.println("OFF");
-              client.println("</button>");
-              client.println("</a>");
-              client.println("</p>");
-            }
-            client.println("</div>");
-            
-            // Display current state, and ON/OFF buttons for GPIO 27  
-            client.println("<div class = \"InnerContainer\">");
-            client.println("<p class = \"OnOff\">GPIO 4 - State " + output4State + "</p>");
-    
-            if (output4State=="off") 
-            {
-              client.println("<p>");
-              client.println("<a href=\"/4/on\">");
-              client.println("<button class=\"glowingButton\">");
-              client.println("ON");
-              client.println("</button>");
-              client.println("</a>");
-              client.println("</p>");
-            } 
-            else 
-            {
-              client.println("<p>");
-              client.println("<a href=\"/4/off\">");
               client.println("<button class=\"glowingButton\">");
               client.println("OFF");
               client.println("</button>");
