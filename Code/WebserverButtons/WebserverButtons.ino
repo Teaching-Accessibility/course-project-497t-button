@@ -28,6 +28,7 @@ String output4State = "off";
 const int output2 = 2;
 const int output3 = 3;
 const int output4 = 4;
+const int ButtonSwitchPin = 7;
 
 unsigned long currentTime = millis();
 unsigned long previousTime = 0; 
@@ -45,6 +46,7 @@ void setup()
   pinMode(output2, OUTPUT);
   pinMode(output3, OUTPUT);
   pinMode(output4, OUTPUT);
+  pinMode(ButtonSwitchPin, INPUT);
 
   // turn off pins asssociated with output[2..4]
   // outputs are active low
@@ -73,10 +75,28 @@ void loop()
 {
   // Listen for incoming clients
   WiFiClient client = server.available();   
-
+    /*
+      * Button Logic
+    */
+    // button is pressed (pin 7 = input pin)
+    if(digitalRead(ButtonSwitchPin) == LOW)
+    {
+      Serial.print("press detected: ");
+      if(sequentialMode == true){
+        Serial.println("Sequential mode");
+        buttonPressedSequential();
+      }
+      else{
+        Serial.println("Standard mode");
+        buttonPressedStandard();
+      }
+    }
   //handle client connection (invoked on connect)
   if (client) 
-  {                           
+  {           
+
+
+
     //currentLine holds incoming client data
     currentTime = millis();
     previousTime = currentTime;
@@ -155,20 +175,8 @@ void loop()
             } 
             //else if (header.indexOf("GET /4/off") >= 0) output4State = "off";
 
-            /*
-             * Button Logic
-            */
-            // button is pressed (pin 7 = input pin)
-            /*if(digitalRead(7) == LOW)
-            {
-              if(sequentialMode == true){
-                buttonPressedSequential();
-              }
-              else{
-                buttonPressedStandard();
-              }
-            }
-            */
+
+            
             /*
              * Webpage HTML Code
             */
