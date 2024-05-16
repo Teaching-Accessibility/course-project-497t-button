@@ -3,9 +3,13 @@
 ## button.h
 ### Global Variables
 int setPin - The pin that will be activated, selected by the user on the webpage
-const int SwitLed - LED pin
+
+const int SwitLed - Constant storing the LED pin
+
 const int inputPin - the pin the switch is plugged into
+
 int buttonTimeoutTime - how long (in ms) the button will timeout after being pressed
+
 
 ### Switch Pin Function
 switchPin(int pinNum)
