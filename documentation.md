@@ -1,7 +1,27 @@
-# PlayPal Documentation
-Written by Jack Stephens (5.15.24)
 
-UI Section: Cameron Warnick
+# Project Documentation
+WebserverButtons.ino and button.h Documentation: Jack Stephens 5.15.24
+UI Documentation: Cameron Warnick 5.15.24
+
+## WebserverButtons.ino
+### Global Variables
+- String button#State - Either "off" or "on", holds the current state of that button
+- const int button# - constant that holds the pin number for the specified button
+- unsigned long currentTime - holds the current time, updated using millis() function
+- unsigned long previousTime - used as a temp holder for time, used in delta time calculations
+- const long timeoutTime - constant holding the time (in ms) for user connection time out
+- bool sequentialMode - tells whether the code is in sequentialMode, either true or false
+
+### Features implemented
+- Initialize Arduino pins
+- Connect to WiFi
+- Create local webserver
+- Allow user connection
+- Detects button presses on UI
+- Switches button number via user web page interaction
+- Only one state can be "on" at one time
+- When button is pressed, the chosen button is activated on the toy
+
 
 ## button.h
 ### Global Variables
