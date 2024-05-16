@@ -102,7 +102,7 @@ Sample Control Interface
 ## Description
 
 The control interface allows users to select inputs which are propagated 
-to all Linkamals toys within a valid radius.  For instance, a user can tap the "3" HTML button,
+to all Linkimals toys within a valid radius.  For instance, a user can tap the "3" HTML button,
 which is conveniently placed on top of the button on the image, to start the dance and song
 associated with this number.  
 
@@ -110,7 +110,7 @@ associated with this number.
 
 Given that we are running hardware that imposes tight limitations on memory and throughput,
 the design for this page is purely functional. However, it maintains familiarity and cohesion with the official product
-by displaying a sample Linkamals toy image and mapping the HTML button elements to their respsective 
+by displaying a sample Linkimals toy image and mapping the HTML button elements to their respective 
 positions on the that image.  It also provides some temporary debugging information as a sanity check
 for button state, which will be removed for the final product.  Our goal is to ensure that users enjoy a seamless
 transition from the default toy to our modified hardware and engagement patterns, and we are actively working to 
