@@ -4,6 +4,8 @@ WebserverButtons.ino/button.h Documentation: Jack Stephens 5.15.24
 
 UI Documentation: Cameron Warnick 5.15.24
 
+Hardware: Steven Grubb 5.15.24
+
 ## WebserverButtons.ino
 ### Global Variables
 - String button#State - Either "off" or "on", holds the current state of that button
