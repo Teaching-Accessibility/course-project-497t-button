@@ -1,5 +1,6 @@
 # PlayPal Documentation
 Written by Jack Stephens (5.15.24)
+
 UI Section: Cameron Warnick
 
 ## button.h
