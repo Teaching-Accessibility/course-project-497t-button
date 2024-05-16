@@ -23,6 +23,8 @@ String header;
 String button1State = "off";
 String button2State = "off";
 String button3State = "off";
+String button4State = "off";
+String button5State = "off";
 
 // Assign output variables to GPIO pins
 const int button1 = 2;
@@ -210,87 +212,71 @@ void loop()
             client.println("<a class = \"InnerText\"><br/>Linkimals Button Project</a></h1>");
             client.println("</div>");
             
-            client.println("<div class = \"ControlContainer\">");
+            client.println("<div class = \"ContentContainer\">");
 
-            // Display current state, and ON/OFF buttons for GPIO 26  
-            client.println("<div class = \"InnerContainer\">");
-            client.println("<p class = \"OnOff\">Button 1 - State " + button1State + "</p>");
-    
-            if (button1State=="off") 
-            {
-              client.println("<p>");
-              client.println("<a href=\"/1/on\">");
-              client.println("<button class=\"glowingButton\">");
-              client.println("ON");
-              client.println("</button>");
-              client.println("</a>");
-              client.println("</p>");
-            } 
-            else 
-            {
-              client.println("<p>");
-              client.println("<a href=\"/1/off\">");
-              client.println("<button class=\"glowingButton\">");
-              client.println("OFF");
-              client.println("</button>");
-              client.println("</a>");
-              client.println("</p>");
-            } 
-            client.println("</div>");
+            client.println("<img class = \"ImageStyle\" src = '../../Traces/HedgeHog/hedgehog.png' />");
+            client.println("<div class = \"ButtonGroupOrigin\">");
 
-            // Display current state, and ON/OFF buttons for GPIO 27 
-            client.println("<div class = \"InnerContainer\">"); 
-            client.println("<p class = \"OnOff\">Button 2 - State " + button2State + "</p>");      
-            if (button2State=="off") 
+            //display buttons based on state
+
+            if(button1State == "off")
             {
-              client.println("<p>");
-              client.println("<a href=\"/2/on\">");
-              client.println("<button class=\"glowingButton\">");
-              client.println("ON");
-              client.println("</button>");
-              client.println("</a>");
-              client.println("</p>");
-            } 
-            else 
-            {
-              client.println("<p>");
-              client.println("<a href=\"/2/off\">");
-              client.println("<button class=\"glowingButton\">");
-              client.println("OFF");
-              client.println("</button>");
-              client.println("</a>");
-              client.println("</p>");
+              client.println("<a href=\"/1/on\"><button class = \"ButtonStyle Button1\"></button></a>");
             }
-            client.println("</div>");
-            
-            // Display current state, and ON/OFF buttons for GPIO 27  
-            client.println("<div class = \"InnerContainer\">");
-            client.println("<p class = \"OnOff\">button 3 - State " + button3State + "</p>");
-    
-            if (button3State=="off") 
+            else
             {
-              client.println("<p>");
-              client.println("<a href=\"/3/on\">");
-              client.println("<button class=\"glowingButton\">");
-              client.println("ON");
-              client.println("</button>");
-              client.println("</a>");
-              client.println("</p>");
-            } 
-            else 
-            {
-              client.println("<p>");
-              client.println("<a href=\"/3/off\">");
-              client.println("<button class=\"glowingButton\">");
-              client.println("OFF");
-              client.println("</button>");
-              client.println("</a>");
-              client.println("</p>");
+              client.println("<a href=\"/1/off\"><button class = \"ButtonStyle Button1\"></button></a>");
             }
-            client.println("</div>");
-            client.println("</div>");
-            client.println("</div>");
 
+            if(button2State == "off")
+            {
+              client.println("<a href=\"/2/on\"><button class = \"ButtonStyle Button2\"></button></a>");
+            }
+            else
+            {
+              client.println("<a href=\"/2/off\"><button class = \"ButtonStyle Button2\"></button></a>");
+            }
+
+            if(button3State == "off")
+            {
+              client.println("<a href=\"/3/on\"><button class = \"ButtonStyle Button3\"></button></a>");
+            }
+            else
+            {
+              client.println("<a href=\"/3/off\"><button class = \"ButtonStyle Button3\"></button></a>");
+            }
+
+            if(button4State == "off")
+            {
+              client.println("<a href=\"/4/on\"><button class = \"ButtonStyle Button4\"></button></a>");
+            }
+            else
+            {
+              client.println("<a href=\"/4/off\"><button class = \"ButtonStyle Button4\"></button></a>");
+            }
+
+            if(button5State == "off")
+            {
+              client.println("<a href=\"/4/on\"><button class = \"ButtonStyle Button5\"></button></a>");
+            }
+            else
+            {
+              client.println("<a href=\"/4/off\"><button class = \"ButtonStyle Button5\"></button></a>");
+            }
+
+            client.println("</div>"); //controlcontainer
+            client.println("</div>"); //contentcontainer
+
+            client.println("<div class = \"StateContainer\">");
+            client.println("<p style = \"color: white\">Button1 State: " + button1State "</p>");
+            client.println("<p style = \"color: white\">Button2 State: " + button2State "</p>");
+            client.println("<p style = \"color: white\">Button3 State: " + button3State "</p>");
+            client.println("<p style = \"color: white\">Button4 State: " + button4State "</p>");
+            client.println("<p style = \"color: white\">Button5 State: " + button5State "</p>");
+            client.println("</div>"); //ContentContainer
+
+            client.println("</div>"); //TopContainer
+            client.println("</div>"); //Container
             client.println("</body>");
             client.println("</html>");
             
@@ -324,9 +310,8 @@ void loop()
   }
 }
 
-String GetStyles()
-{
-String styles = "<style>"
+String GetStyles() {
+  String styles = "<style>"
                     ".Container {"
                         "display: flex;"
                         "flex-direction: column;"
@@ -349,23 +334,28 @@ String styles = "<style>"
                         "color: white;"
                         "font-size: 4vmax;"
                     "}"
+                    ".ContentContainer {"
+                        "width: 100vw;"
+                        "margin-top: 5vh;"
+                        "display: flex;"
+                        "flex-direction: column;"
+                        "gap: 1vmax;"
+                        "justify-content: center;"
+                        "align-items: center;"
+                    "}"
                     ".ControlContainer {"
                         "display: flex;"
                         "flex-direction: row;"
                         "justify-content: center;"
-                        "gap: 3vw;"
-                        "padding: 2vw;"
                         "background-color: #303030;"
                         "color: white;"
-                        "margin-top: 25vh;"
                         "border-radius: 20px;"
+                        "padding: 1vmax;"
                     "}"
                     ".InnerContainer {"
                         "display: flex;"
                         "flex-direction: column;"
-                    "}"
-                    ".OnOff {"
-                        "font-weight: bolder;"
+                        "position: absolute;"
                     "}"
                     "html {"
                         "background-color: #ffffff;"
@@ -376,63 +366,216 @@ String styles = "<style>"
                         "overflow-x: hidden;"
                     "}"
                     ".InnerText {"
-                    "color: #d0d0d0;"
-                    "font-size: 2vmax;"
-                    "}"
-                    ".glowingButton {"
-                        "transform: translate(-0%, 0%);"
-                        "text-align: center;"
-                        "padding: 0px;"
-                        "padding-left: 2vw;"
-                        "padding-right: 2vw;"
-                        "line-height:  6vh;"
                         "color: #d0d0d0;"
-                        "background: none;"
-                        "font-size: 1.5vh;"
-                        "text-transform: uppercase;"
-                        "text-decoration: none;"
-                        "box-sizing: border-box;"
-                        "background-size: 0%;"
-                        "background-size: 400%;"
-                        "backdrop-filter: blur(30px);"
-                        "border-radius: 5vw;"
-                        "border: 0.1vh solid #8a8a8a;"
+                        "font-size: 2vmax;"
                     "}"
-                    ".glowingButton:hover {"
-                        "animation: animate 8s linear infinite;"
-                        "cursor: pointer;"
-                        "color: transparent;"
-                    "}"
-                    "@keyframes animate {"
-                        "0% {"
-                            "background-position: 0%;"
-                        "}"
-                        "100% {"
-                            "background-position: 400%;"
-                        "}"
-                    "}"
-                    ".glowingButton::before {"
-                        "content: '';"
-                        "text-align: center;"
+                    ".ButtonGroupOrigin {"
+                        "margin-top: 13vh;"
                         "position: absolute;"
-                        "top: -5px;"
-                        "left: -5px;"
-                        "right: -5px;"
-                        "bottom: -5px;"
-                        "z-index: -1;"
-                        "background: linear-gradient(90deg, #03a9f4, #03a9f4, #f441a5, #ffeb3b, #03a9f4);"
-                        "background-size: 400%;"
-                        "border-radius: 30px;"
-                        "opacity: 0;"
-                        "transition: 0.5s;"
                     "}"
-                    ".glowingButton:hover:before {"
-                        "filter: blur(20px);"
-                        "opacity: 1;"
-                        "animation: animate 8s linear infinite;"
+                    ".StateContainer {"
+                        "display: flex;"
+                        "flex-direction: row;"
+                        "background-color: #303030;"
+                        "gap: 2vmax;"
+                        "padding: 1vmax;"
+                        "border-radius: 20px;"
+                        "justify-content: center;"
+                        "align-items: center;"
+                    "}"
+                    ".ImageStyle {"
+                        "width: 25vmax;"
+                        "height: 25vmax;"
+                    "}"
+                    ".ButtonStyle {"
+                        "position: absolute;"
+                        "width: 3vmax;"
+                        "height: 3vmax;"
+                        "background: none;"
+                        "border: 1px solid white;"
+                        "cursor: pointer;"
+                    "}"
+                    ".Button1 {"
+                        "margin-left: -5vw;" 
+                        "margin-top: 5.5vh;"
+                    "}"
+                    ".Button2 {"
+                        "margin-left: -2vw;" 
+                        "margin-top: 1.25vh;"
+                    "}"
+                    ".Button3 {"
+                        "margin-left: 1.5vw;"  
+                        "margin-top: 1.75vh;"
+                    "}"
+                    ".Button4 {"
+                        "margin-left: 5vw;" 
+                        "margin-top: 7vh;"
+                    "}"
+                    ".Button5 {"
+                        "margin-left: 5vw;" 
+                        "margin-top: 15vh;"
+                    "}"
+                    "@media(orientation: landscape) {"
+                        "@media(max-aspect-ratio: 20/10) {"
+                            ".ButtonGroupOrigin {"
+                                "margin-top: 11vh;"
+                                "position: absolute;"
+                            "}"
+                        "}"
+                        "@media(max-aspect-ratio: 18/10) and (min-aspect-ratio: 16/10) {"
+                            ".ButtonGroupOrigin {"
+                                "margin-top: 10.5vh;"
+                                "position: absolute;"
+                            "}"
+                            ".Button4 {"
+                                "margin-left: 5vw;" 
+                                "margin-top: 5vh;"
+                            "}"
+                            ".Button5 {"
+                                "margin-top: 12vh;"
+                            "}"
+                        "}"
+                        "@media(max-aspect-ratio: 16/10) and (min-aspect-ratio: 15/10) {"
+                            ".ButtonGroupOrigin {"
+                                "margin-top: 9vh;"
+                                "position: absolute;"
+                            "}"
+                            ".Button4 {"
+                                "margin-left: 5vw;" 
+                                "margin-top: 5vh;"
+                            "}"
+                            ".Button5 {"
+                                "margin-top: 12vh;"
+                            "}"
+                        "}"
+                        "@media(max-aspect-ratio: 14/10) and (min-aspect-ratio: 12/10) {"
+                            ".ButtonGroupOrigin {"
+                                "margin-top: 8vh;"
+                                "position: absolute;"
+                            "}"
+                            ".Button4 {"
+                                "margin-left: 5vw;" 
+                                "margin-top: 5vh;"
+                            "}"
+                            ".Button5 {"
+                                "margin-top: 11vh;"
+                            "}"
+                            ".Button1 {"
+                                "margin-top: 4vh;"
+                            "}"
+                        "}"
+                        "@media(max-aspect-ratio: 12/10) {"
+                            ".ButtonGroupOrigin {"
+                                "margin-top: 6vh;"
+                                "position: absolute;"
+                            "}"
+                            ".Button4 {"
+                                "margin-left: 5vw;" 
+                                "margin-top: 5vh;"
+                            "}"
+                            ".Button5 {"
+                                "margin-top: 11vh;"
+                            "}"
+                            ".Button1 {"
+                                "margin-top: 4vh;"
+                            "}"
+                        "}"
+                    "}"
+                    "@media(orientation: portrait) {"
+                        "@media(min-aspect-ratio: 9/10) {"
+                            ".ButtonGroupOrigin {"
+                                "margin-top: 5vh;"
+                                "position: absolute;"
+                            "}"
+                            ".Button4 {"
+                                "margin-left: 5vw;" 
+                                "margin-top: 4vh;"
+                            "}"
+                            ".Button5 {"
+                                "margin-top: 8vh;"
+                            "}"
+                            ".Button1 {"
+                                "margin-top: 4vh;"
+                            "}"
+                        "}"
+                        "@media(max-aspect-ratio: 9/10) and (min-aspect-ratio: 7/10) {"
+                            ".ButtonGroupOrigin {"
+                                "margin-top: 5vh;"
+                                "position: absolute;"
+                            "}"
+                            ".Button4 {"
+                                "margin-left: 5vw;" 
+                                "margin-top: 4vh;"
+                            "}"
+                            ".Button5 {"
+                                "margin-top: 8vh;"
+                            "}"
+                            ".Button1 {"
+                                "margin-top: 4vh;"
+                            "}"
+                            ".StateContainer {"
+                                "scale: .7;"
+                            "}"
+                        "}"
+                        "@media(max-aspect-ratio: 7/10) and (min-aspect-ratio: 5/10) {"
+                            ".ButtonGroupOrigin {"
+                                "margin-top: 5vh;"
+                                "position: absolute;"
+                            "}"
+                            ".Button1 {"
+                                "margin-left: -9vw;"
+                                "margin-top: 3.5vh;"
+                            "}"
+                            ".Button2 {"
+                                "margin-left: -3vw;" 
+                                "margin-top: 1.75vh;"
+                            "}"
+                            ".Button3 {"
+                                "margin-left: 3vw;"  
+                                "margin-top: 1.75vh;"
+                            "}"
+                            ".Button4 {"
+                                "margin-left: 10.5vw;" 
+                                "margin-top: 4vh;"
+                            "}"
+                            ".Button5 {"
+                                "margin-top: 8vh;"
+                                "margin-left: 9vw;" 
+                            "}"
+                            ".StateContainer {"
+                                "scale: .7;"
+                            "}"
+                        "}"
+                        "@media(max-aspect-ratio: 5/10) and (min-aspect-ratio: 3/10) {"
+                            ".ButtonGroupOrigin {"
+                                "margin-top: 5vh;"
+                                "position: absolute;"
+                            "}"
+                            ".Button1 {"
+                                "margin-left: -15vw;"
+                                "margin-top: 3.5vh;"
+                            "}"
+                            ".Button2 {"
+                                "margin-left: -6vw;" 
+                                "margin-top: 1.75vh;"
+                            "}"
+                            ".Button3 {"
+                                "margin-left: 4vw;"  
+                                "margin-top: 1.75vh;"
+                            "}"
+                            ".Button4 {"
+                                "margin-left: 14.5vw;" 
+                                "margin-top: 4vh;"
+                            "}"
+                            ".Button5 {"
+                                "margin-top: 8vh;"
+                                "margin-left: 16vw;" 
+                            "}"
+                            ".StateContainer {"
+                                "scale: .7;"
+                            "}"
+                        "}"
                     "}"
                 "</style>";
-
   return styles;
-            
 }
