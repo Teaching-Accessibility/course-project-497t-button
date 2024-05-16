@@ -18,10 +18,10 @@ UI Documentation: Cameron Warnick 5.15.24
 - Connect to WiFi
 - Create local webserver
 - Allow user connection
-- Detects button presses on UI
-- Switches button number via user web page interaction
+- Detects button presses on serial monitor
+- Change switch button number via user web page interaction
 - Only one state can be "on" at one time
-- When button is pressed, the chosen button is activated on the toy
+- When the Switch is pressed, the chosen button is activated on the toy
 
 
 ## button.h
@@ -41,7 +41,7 @@ switchPin(int pinNum)
 
 Description-
 
-    Switches the setPin variable to the number stored in pinNum
+    Switches the setPin variable to the number passed by pinNum
 
 
 Parameters-
@@ -60,7 +60,7 @@ activatePin()
 
 Description-
 
-    Turns on the LED and the set pin and then prints serial confirmation
+    Turns on the switch LED and the set pin and then prints serial confirmation
 
 
 Parameters-
@@ -79,7 +79,7 @@ deactivatePin()
 
 Description-
     
-    Turns off the LED and the set pin and then prints serial confirmation
+    Turns off the switch LED and the set pin and then prints serial confirmation
 
 
 Parameters-
@@ -125,7 +125,7 @@ Sample Control Interface
 
 The control interface allows users to select inputs which are propagated 
 to all Linkimals toys within a valid radius.  For instance, a user can tap the "3" HTML button,
-which is conveniently placed on top of the button on the image, to start the dance and song
+which is conveniently placed on top of the button on the image, to enable the switch to start the dance and song
 associated with this number.  
 
 ## Design Principles
