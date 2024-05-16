@@ -106,9 +106,6 @@ void loop()
   //handle client connection (invoked on connect)
   if (client) 
   {           
-
-
-
     //currentLine holds incoming client data
     currentTime = millis();
     previousTime = currentTime;
