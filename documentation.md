@@ -1,5 +1,6 @@
 # PlayPal Documentation
 Written by Jack Stephens (5.15.24)
+UI Section: Cameron Warnick
 
 ## button.h
 ### Global Variables
@@ -86,3 +87,8 @@ Parameters-
 Returns-
     
     N/A
+
+# UI Documentation
+
+## Design Screenshot
+![Control interface](/design.png)
