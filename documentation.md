@@ -137,3 +137,8 @@ positions on the that image.  It also provides some temporary debugging informat
 for button state, which will be removed for the final product.  Our goal is to ensure that users enjoy a seamless
 transition from the default toy to our modified hardware and engagement patterns, and we are actively working to 
 further refine this process.
+
+
+# Hardware Layout
+![System Diagram](/PlayPalHardware.png)
+
