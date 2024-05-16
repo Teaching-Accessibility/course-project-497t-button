@@ -33,7 +33,7 @@ const int button3 = 4;
 const int button4 = 5;
 const int button5 = 6;
 const int Switch1 = 7;
-const int SwitLed = 8;
+//const int SwitLed = 8;
 
 unsigned long currentTime = millis();
 unsigned long previousTime = 0; 

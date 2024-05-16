@@ -1,5 +1,6 @@
 // global variables
 int setPin = -1;
+const int SwitLed = 8;
 unsigned long h_currentTime = millis();
 unsigned long h_previousTime = 0;
 const int inputPin = 7;
@@ -15,7 +16,9 @@ void switchPin(int pinNum){
 // Function that activates a pin as long as the pin number is valid
 void activatePin(){
   if(setPin >= 2 && setPin <= 6){
+    digitalWrite(SwitLed, HIGH);
     digitalWrite(setPin, LOW);
+    Serial.println("Pin Low");
   }
   else{
     Serial.println("Invalid pin number set on activation");
@@ -26,7 +29,9 @@ void activatePin(){
 // Function that deactivates a pin as long as the pin number is valid
 void deactivatePin(){
   if(setPin >= 2 && setPin <= 6){
+    digitalWrite(SwitLed, LOW);
     digitalWrite(setPin, HIGH);
+    Serial.println("pin High");
   }
   else{
     Serial.println("Invalid pin number set on deactivate");
@@ -47,10 +52,11 @@ void buttonPressedStandard(){
   h_currentTime = millis();
   h_previousTime = h_currentTime;
   activatePin();
+  delay(150);
 
-  while(!(h_currentTime - h_previousTime < buttonTimeoutTime)){
-    h_currentTime = millis();
-  }
+  // while(!(h_currentTime - h_previousTime < buttonTimeoutTime)){
+  //   h_currentTime = millis();
+  // }
 
   deactivatePin();
   return;
