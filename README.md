@@ -3,9 +3,9 @@ Steven Grubb, Cameron Warnick, and Jack Stephens
 
 
 ### Description:
-This software creates a webserver uses it to control the GPIO pins on an Arduino ESP32. This project aims to 
-broaden the uses of a typical switch and creating a wireless connnection to the Linkimals branded toys instead 
-of the regular wired connection of typical switches.
+
+This project leverages the functionality of an inexpensive ESP32 microcontroller to connect an accesibility switch to the Fisher-Price
+Linkimals line of childrens toys. This connection is done wirelessly, so that there is no modification required to the target toy, and the user has far more freedom of movment, not constrained by wires. The greatest expantion of functionality comes from the single switch being able to operate multiple toy functions, the active function selectable via a web interface hosted on the ESP controller within the switch housing. The approach taken of not modifying the target toy, allows the user to purchase readily available off the shelf toys, and without any further effort those toys are 'switch enabled', ready for use. 
 
 Further information on exact implementations can be found in our [documentation](documentation.md)
 
