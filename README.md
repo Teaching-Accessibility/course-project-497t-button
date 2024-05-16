@@ -11,7 +11,7 @@ of the regular wired connection of typical switches.
 1. Install [Arduino IDE](https://www.arduino.cc/en/software)
 2. Install all zip of repo
 3. Extract contents to a folder
-4. Open Code/WebserverButtons/WebserverButtons.ino in Arduino IDE
+4. Open /Code/WebserverButtons/WebserverButtons.ino in Arduino IDE
 5. Connect Arduino ESP32 to computer
 6. Upload files from Arduino IDE to the ESP32
 
