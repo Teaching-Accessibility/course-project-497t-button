@@ -140,5 +140,5 @@ further refine this process.
 
 
 # Hardware Layout
-![System Diagram](/PlayPalHardware.png)
+![System Diagram](/PlayPalDiagram.png)
 
