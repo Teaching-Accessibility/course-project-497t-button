@@ -15,7 +15,7 @@ of the regular wired connection of typical switches.
 5. Connect Arduino ESP32 to computer
 6. Upload files from Arduino IDE to the ESP32
 
-### Contributing:
+### Bugs and Issues:
 [PlayPal Issue Reporting](https://github.com/Teaching-Accessibility/course-project-497t-button/issues)
 
 ### License:
