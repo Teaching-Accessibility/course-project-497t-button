@@ -1,4 +1,4 @@
-# "The PlayPal"
+# The PlayPal
 Steven Grubb, Cameron Warnick, and Jack Stephens
 
 
