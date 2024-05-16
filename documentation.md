@@ -144,3 +144,12 @@ further refine this process.
 # Hardware Layout
 ![System Diagram](/PlayPalDiagram.png)
 
+
+# Simulated Backend
+
+The original project scope was to emulate the wireless communication of these toys with an NRF24l01 module to eliminate 
+the need to modify toys to achieve this functionality, however, for this R1 an alternate route was taken of reusing the 
+mainboard from a disassembled toy to achieve the wireless component between toys. There are some advantages to this aproach, 
+ease of implementation, and the speaker in the button from the original toy. Further evaluation of wether moving to the nrf 
+module will outweigh the benifits of using the FYK58 mainboard. 
+
