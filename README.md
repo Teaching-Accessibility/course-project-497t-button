@@ -7,6 +7,8 @@ This software creates a webserver uses it to control the GPIO pins on an Arduino
 broaden the uses of a typical switch and creating a wireless connnection to the Linkimals branded toys instead 
 of the regular wired connection of typical switches.
 
+Further information on exact implementations can be found in our [documentation](documentation.md)
+
 ### Installation:
 1. Install [Arduino IDE](https://www.arduino.cc/en/software)
 2. Install all zip of repo
