@@ -3,7 +3,7 @@ Steven Grubb, Cameron Warnick, and Jack Stephens
 
 
 ### Description:
-This software creates a webserver uses it to control the GPIO pins on and Arduino ESP32. This project aims to 
+This software creates a webserver uses it to control the GPIO pins on an Arduino ESP32. This project aims to 
 broaden the uses of a typical switch and creating a wireless connnection to the Linkimals branded toys instead 
 of the regular wired connection of typical switches.
 
