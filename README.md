@@ -1,7 +1,6 @@
 # 497T Accesible Computing Project
 ## "The PlayPal"
-
-### Authors: Steven Grubb, Cameron Warnick, and Jack Stephens
+Authors: Steven Grubb, Cameron Warnick, and Jack Stephens
 
 
 ### Description:
