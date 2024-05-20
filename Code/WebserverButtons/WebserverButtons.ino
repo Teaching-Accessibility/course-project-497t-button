@@ -141,48 +141,79 @@ void loop()
             /*
              * Pin switching and state swapping logic
             */
-            if (header.indexOf("GET /1/on") >= 0) 
+            if (header.indexOf("GET /1/on") >= 0) //button1
             {
               Serial.println("Button1 on");
               switchPin(button1);
 
-              if(button3State == "on" || button2State == "on"){ // turn others off, only one at a time
-                Serial.println("turning off 2 or 3");
+              if(button2State == "on" || button3State == "on" || button4State == "on" || button5State == "on"){ // turn others off, only one at a time
+                Serial.println("turning off all states besides button1");
                 button2State = "off";
                 button3State = "off";
+                button4State = "off";
+                button5State = "off";
               }
 
               button1State = "on";
             } 
-            //else if (header.indexOf("GET /2/off") >= 0) output2State = "off";
-            else if (header.indexOf("GET /2/on") >= 0) 
+            else if (header.indexOf("GET /2/on") >= 0) // button2
             {
               Serial.println("Button 2 On");
               switchPin(button2);
 
-              if(button1State == "on" || button3State == "on"){ // turn others off, only one at a time
-                Serial.println("turning off 1 or 3");
+              if(button1State == "on" || button3State == "on" || button4State == "on" || button5State == "on"){ // turn others off, only one at a time
+                Serial.println("turning off all states besides button2");
                 button1State = "off";
                 button3State = "off";
+                button4State = "off";
+                button5State = "off";
               }
 
               button2State = "on";
             } 
-            //else if (header.indexOf("GET /3/off") >= 0) output3State = "off";
-            else if (header.indexOf("GET /3/on") >= 0) 
+            else if (header.indexOf("GET /3/on") >= 0) // button3
             {
               Serial.println("button3 on");
               switchPin(button3);
 
-              if(button1State == "on" || button2State == "on"){ // turn others off, only one at a time
-                Serial.println("turning off 1 or 2");
+              if(button1State == "on" || button2State == "on" || button4State == "on" || button5State == "on"){ // turn others off, only one at a time
+                Serial.println("turning off all states besides button3");
                 button1State = "off";
                 button2State = "off";
+                button4State = "off";
+                button5State = "off";
               }
 
               button3State = "on";
             } 
-            //else if (header.indexOf("GET /4/off") >= 0) output4State = "off";
+            else if (header.indexOf("GET/4/on") >= 0) // button4
+            {
+              Serial.println("button4 on");
+              switchPin(button4);
+              if(button1State == "on" || button2State == "on" || button3State == "on" || button5State == "on"){ // turn others off, only one at a time
+                Serial.println("turning off all states besides button4");
+                button1State = "off";
+                button2State = "off";
+                button3State = "off";
+                button5State = "off";
+              }
+
+              button4State = "on";
+            }
+            else if (header.indexOf("GET/5/on") >= 0) // button5
+            {
+              Serial.println("button5 on");
+              switchPin(button5);
+              if(button1State == "on" || button2State == "on" || button3State == "on" || button4State == "on"){ // turn others off, only one at a time
+                Serial.println("turning off all states besides button4");
+                button1State = "off";
+                button2State = "off";
+                button3State = "off";
+                button4State = "off";
+              }
+
+              button5State = "on";
+            }
 
 
             
