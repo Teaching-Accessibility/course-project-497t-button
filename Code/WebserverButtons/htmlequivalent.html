@@ -4,7 +4,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="data:,">
   <style>
-    .Container {
+    .Container 
+    {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -12,7 +13,8 @@
       height: 100vh;
       position: absolute;
     }
-    .TopContainer {
+    .TopContainer 
+    {
       background-color: black;
       width: 100%;
       height: 20vh;
@@ -373,11 +375,11 @@
             <img class = "ImageStyle" src = '../../Traces/HedgeHog/hedgehog.png' />
 
             <div class = "ButtonGroupOrigin">
-                <button class = "ButtonStyle Button1"></button>
-                <button class = "ButtonStyle Button2"></button>
-                <button class = "ButtonStyle Button3"></button>
-                <button class = "ButtonStyle Button4"></button>
-                <button class = "ButtonStyle Button5"></button>
+                <button onclick = "sendRequest('B1')" class = "ButtonStyle Button1"></button>
+                <button onclick = "sendRequest('B2')" class = "ButtonStyle Button2"></button>
+                <button onclick = "sendRequest('B3')" class = "ButtonStyle Button3"></button>
+                <button onclick = "sendRequest('B4')" class = "ButtonStyle Button4"></button>
+                <button onclick = "sendRequest('B5')" class = "ButtonStyle Button5"></button>
             </div>
 
         </div>
@@ -409,5 +411,75 @@
     </div>
 
   </div>
+  <script>
+
+    //false => off
+    let button1State = false;
+    let button2State = false;
+    let button3State = false;
+    let button4State = false;
+    let button5State = false;
+
+    function sendRequest(buttonID) 
+    {
+      let buttState;
+
+      if (buttonID === "B1") 
+      {
+        button1State = !button1State;
+        buttState = button1State;
+        updateStateDisplay(buttonID, button1State);
+      }
+      if (buttonID === "B2") 
+      {
+        button2State = !button2State;
+        buttState = button2State;
+        updateStateDisplay(buttonID, button2State);
+      }
+      if (buttonID === "B3") 
+      {
+        button3State = !button3State;
+        buttState = button3State;
+        updateStateDisplay(buttonID, button3State);
+      }
+      if (buttonID === "B4") 
+      {
+        button4State = !button4State;
+        buttState = button4State;
+        updateStateDisplay(buttonID, button4State);
+      }
+      if (buttonID === "B5") 
+      {
+        button5State = !button5State;
+        buttState = button5State;
+        updateStateDisplay(buttonID, button5State);
+      }
+
+      fetch('SERVER_ADDRESS', 
+      {
+        method: 'POST',
+        headers: 
+        {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+        {
+          buttonID: buttonID,
+          newState: buttState
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+      })
+      .catch(error => console.error('Error:', error));
+    }
+
+    function updateStateDisplay(buttonID, state) {
+      let stateText = state ? "On" : "Off";
+      document.getElementById(`button${buttonID[1]}-state`).textContent = `Button${buttonID[1]} State: ${stateText}`;
+    }
+        
+  </script>
 </body>
 </html>
