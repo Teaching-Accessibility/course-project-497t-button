@@ -55,7 +55,7 @@ String GetStyles();
 String processor();
   // Replaces placeholder with Pin state value
 
-
+const char* PARAM_MESSAGE = "buttonID";
 
 
 void setup() 
@@ -132,6 +132,24 @@ void setup()
     request->send(SPIFFS, "/index.html", String(), false);
   });
   
+      // button1 pressed
+  server.on("/update1", HTTP_GET, [](AsyncWebServerRequest *request){
+    //request->send(SPIFFS, "/index.html", String(), false);
+    Serial.println("button1 pressed");
+    request->send(200, "text/plain", "OK");
+  });
+
+  //TODO: change 'SERVER_ADDRESS' to something more meaningfull
+  server.on("/SERVER_ADDRESS", HTTP_POST, [](AsyncWebServerRequest *request){
+        Serial.println("got post");
+        String message;
+          if (request->hasParam(PARAM_MESSAGE, true)) {
+              message = request->getParam(PARAM_MESSAGE, true)->value();
+          } else {
+              message = "No message sent";
+          }
+        request->send(200, "JSON", "{\"greeting\":\"Hello\",\"POST\":\"" + message+ "\"}");
+    });
   
   
   server.begin();
