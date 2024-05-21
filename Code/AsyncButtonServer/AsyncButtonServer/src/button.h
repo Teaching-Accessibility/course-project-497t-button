@@ -52,7 +52,7 @@ void buttonPressedStandard(){
   h_currentTime = millis();
   h_previousTime = h_currentTime;
   activatePin();
-  delay(150);
+  //delay(150);
 
   // while(!(h_currentTime - h_previousTime < buttonTimeoutTime)){
   //   h_currentTime = millis();

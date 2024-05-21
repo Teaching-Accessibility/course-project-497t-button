@@ -11,7 +11,8 @@
 #include "button.h"
 #include <ESPAsyncWebServer.h>
 #include "SPIFFS.h"
-
+//#include <AsyncJson.h>
+//#include <ArduinoJson.h>
 
 // Replace with your network credentials
 const char* ssid = "TestNet_24";
@@ -53,9 +54,11 @@ bool sequentialMode = false;
 //method declarations
 String GetStyles();
 String processor();
+bool updatePins(String);
   // Replaces placeholder with Pin state value
 
 const char* PARAM_MESSAGE = "buttonID";
+
 
 
 void setup() 
@@ -141,20 +144,22 @@ void setup()
 
   //TODO: change 'SERVER_ADDRESS' to something more meaningfull
   server.on("/SERVER_ADDRESS", HTTP_POST, [](AsyncWebServerRequest *request){
-        Serial.println("got post");
-        String message;
-          if (request->hasParam(PARAM_MESSAGE, true)) {
-              message = request->getParam(PARAM_MESSAGE, true)->value();
-          } else {
-              message = "No message sent";
-          }
-        request->send(200, "JSON", "{\"greeting\":\"Hello\",\"POST\":\"" + message+ "\"}");
+      String message;
+        if (request->hasParam(PARAM_MESSAGE, true)) {
+            message = request->getParam(PARAM_MESSAGE, true)->value();
+            updatePins(message);
+        } else {
+            message = "No message sent";
+        }
+
+        request->send(200, "JSON", "{\"ButtonRecv\":\"" + message+ "\"}");
     });
   
   
   server.begin();
 
 }
+
 
 void loop()
 {
@@ -179,6 +184,12 @@ void loop()
 
 
 
+}
+
+bool updatePins(String pinID){
+  Serial.println("updating state of pin: " + pinID);
+  //put button logic code here, return sucess value
+  return true;
 }
 
 String GetStyles() {

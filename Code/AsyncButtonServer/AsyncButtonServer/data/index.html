@@ -460,15 +460,11 @@
       fetch('SERVER_ADDRESS', 
       {
         method: 'POST',
-        headers: 
-        {
-          'Content-Type': 'application/json'
+        headers:{
+          "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: JSON.stringify(
-        {
-          buttonID: buttonID,
-          newState: buttState
-        })
+        body: 'buttonID='+buttonID
+       
       })
       .then(response => response.json())
       .then(data => {
