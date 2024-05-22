@@ -189,7 +189,7 @@ void loop()
 
 bool updatePins(String pinID){
   Serial.println("updating state of pin: " + pinID);
-  int intPinID = stoi(pinID); // convert pinID to int
+  int intPinID = pinID.toInt(); // convert pinID to int
 
   if(intPinID < 1 || intPinID > 6){ // check if pin number is valid
     Serial.println("the selected pin is too large or too small: " + pinID);
