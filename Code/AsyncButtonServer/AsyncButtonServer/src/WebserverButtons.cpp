@@ -6,6 +6,7 @@
 
 *********/
 #include <Arduino.h>
+#include <iostream>
 #include <SPIFFS.h>
 #include <WiFi.h>
 #include "button.h"
@@ -188,7 +189,65 @@ void loop()
 
 bool updatePins(String pinID){
   Serial.println("updating state of pin: " + pinID);
-  //put button logic code here, return sucess value
+  int intPinID = stoi(pinID); // convert pinID to int
+
+  if(intPinID < 1 || intPinID > 6){ // check if pin number is valid
+    Serial.println("the selected pin is too large or too small: " + pinID);
+    Serial.println("failed to update pin: " + pinID);
+    return false;
+  }
+  
+  switchPin(intPinID);
+
+  switch (intPinID)
+  {
+  case 1:
+    button1State = "on";
+
+    button2State = "off";
+    button3State = "off";
+    button4State = "off";
+    button5State = "off";
+    break;
+  case 2:
+    button2State = "on";
+
+    button1State = "off";
+    button3State = "off";
+    button4State = "off";
+    button5State = "off";
+    break;
+  case 3:
+    button3State = "on";
+
+    button2State = "off";
+    button1State = "off";
+    button4State = "off";
+    button5State = "off";
+    break;
+  case 4:
+    button4State = "on";
+
+    button2State = "off";
+    button3State = "off";
+    button1State = "off";
+    button5State = "off";
+    break;
+  case 5:
+    button5State = "on";
+
+    button2State = "off";
+    button3State = "off";
+    button4State = "off";
+    button1State = "off";
+    break;
+  
+  default:
+    Serial.println("switch statement error while swapping pins");
+    return false;
+  }
+
+  Serial.println("successfully updated state of pin: " + pinID);
   return true;
 }
 
