@@ -30,19 +30,21 @@ String button3State = "off";
 String button4State = "off";
 String button5State = "off";
 
-// Assign output variables to GPIO pins
-const int button1 = 2;
-const int button2 = 3;
-const int button3 = 4;
-const int button4 = 5;
-const int button5 = 6;
-const int Switch1 = 7;
-//const int SwitLed = 8;
+// Initialize map for webpage buttons to pins
+map<int, int> webpageMap;
+
+webpageMap[1] = 2;
+webpageMap[2] = 3;
+webpageMap[3] = 4;
+webpageMap[4] = 5;
+webpageMap[5] = 6;
 
 // Set LED GPIO
 const int ledPin = 2;
 // Stores LED state
 String ledState;
+// Set switch GPIO
+const int Switch1 = 7;
 
 
 unsigned long currentTime = millis();
@@ -51,6 +53,8 @@ const long timeoutTime = 2000;
 
 // Boolean variables for modes, default: off
 bool sequentialMode = false;
+bool timeout = false;
+unsigned long buttonTimeoutTime = 150;
 
 //method declarations
 String GetStyles();
@@ -170,84 +174,65 @@ void loop()
       * Button Logic
     */
     // button is pressed (pin 7 = input pin)
+    currentTime = millis();
+
+    if(timeout && currentTime - previousTime > buttonTimeoutTime){
+        timeout = false;
+    }
+
     if(digitalRead(Switch1) == LOW)
     {
       Serial.print("press detected: ");
-      if(sequentialMode == true){
-        Serial.println("Sequential mode");
-        buttonPressedSequential();
+      if(!timeout){
+        if(sequentialMode == true){
+            previousTime = currentTime;
+            Serial.println("Sequential mode");
+            buttonPressedSequential(currentTime, previousTime);
+        }
+        else{
+            previousTime = currentTime;
+            Serial.println("Standard mode");
+            buttonPressedStandard(currentTime, previousTime);
+            timeout = true;
+        }
       }
       else{
-        Serial.println("Standard mode");
-        buttonPressedStandard();
+        Serial.println("button in timeout, ignoring press");
       }
     }
 
-
-
 }
 
-bool updatePins(String pinID){
-  Serial.println("updating state of pin: " + pinID);
-  int intPinID = pinID.toInt(); // convert pinID to int
+bool updatePins(String buttonID){
+  Serial.println("updating state of button: " + buttonID);
 
-  if(intPinID < 1 || intPinID > 6){ // check if pin number is valid
-    Serial.println("the selected pin is too large or too small: " + pinID);
-    Serial.println("failed to update pin: " + pinID);
-    return false;
-  }
-  
-  switchPin(intPinID);
-
-  switch (intPinID)
-  {
-  case 1:
-    button1State = "on";
-
-    button2State = "off";
-    button3State = "off";
-    button4State = "off";
-    button5State = "off";
-    break;
-  case 2:
-    button2State = "on";
-
-    button1State = "off";
-    button3State = "off";
-    button4State = "off";
-    button5State = "off";
-    break;
-  case 3:
-    button3State = "on";
-
-    button2State = "off";
-    button1State = "off";
-    button4State = "off";
-    button5State = "off";
-    break;
-  case 4:
-    button4State = "on";
-
-    button2State = "off";
-    button3State = "off";
-    button1State = "off";
-    button5State = "off";
-    break;
-  case 5:
-    button5State = "on";
-
-    button2State = "off";
-    button3State = "off";
-    button4State = "off";
-    button1State = "off";
-    break;
-  
-  default:
-    Serial.println("switch statement error while swapping pins");
+  if(webpageMap.count(buttonID.toInt()) == 0){ // If buttonID is not in map
+    Serial.println("ERROR: buttonID, " + buttonID + ", is not mapped to a pin");
+    Serial.println("Failed updating pins!");
     return false;
   }
 
-  Serial.println("successfully updated state of pin: " + pinID);
+  int pinID = webpageMap[buttonID.toInt()];
+
+  switchPin(pinID);
+
+  button1State = "off";
+  button2State = "off";
+  button3State = "off";
+  button4State = "off";
+  button5State = "off";
+  Serial.println("Turning all states off");
+  
+  switch(buttonID.toInt()) {
+    case 1: button1State = "on"; Serial.println("button1State on"); break;
+    case 2: button2State = "on"; Serial.println("button2State on"); break;
+    case 3: button3State = "on"; Serial.println("button3State on"); break;
+    case 4: button4State = "on"; Serial.println("button4State on"); break;
+    case 5: button5State = "on"; Serial.println("button5State on"); break;
+    default: Serial.println("ERROR: Invalid buttonID"); break;
+  }
+
+  Serial.println("successfully updated state of button: " + buttonID);
   return true;
 }
 
