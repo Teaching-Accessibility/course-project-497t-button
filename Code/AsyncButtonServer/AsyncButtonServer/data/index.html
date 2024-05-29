@@ -375,11 +375,11 @@
             <img class = "ImageStyle" src = '/hedgehog.png' />
 
             <div class = "ButtonGroupOrigin">
-                <button onclick = "sendRequest('B1')" class = "ButtonStyle Button1"></button>
-                <button onclick = "sendRequest('B2')" class = "ButtonStyle Button2"></button>
-                <button onclick = "sendRequest('B3')" class = "ButtonStyle Button3"></button>
-                <button onclick = "sendRequest('B4')" class = "ButtonStyle Button4"></button>
-                <button onclick = "sendRequest('B5')" class = "ButtonStyle Button5"></button>
+                <button onclick = "sendButtonUpdate(1)" class = "ButtonStyle Button1"></button>
+                <button onclick = "sendButtonUpdate(2)" class = "ButtonStyle Button2"></button>
+                <button onclick = "sendButtonUpdate(3)" class = "ButtonStyle Button3"></button>
+                <button onclick = "sendButtonUpdate(4)" class = "ButtonStyle Button4"></button>
+                <button onclick = "sendButtonUpdate(5)" class = "ButtonStyle Button5"></button>
             </div>
 
         </div>
@@ -387,23 +387,23 @@
         <div class = "StateContainer">
 
             <p style = "color: red" id="button1-state">
-                Button1 State: Off
+                Button1 State: 
             </p>
 
             <p style = "color: red" id="button2-state">
-                Button2 State: Off
+                Button2 State: 
             </p>
 
             <p style = "color: red" id="button3-state">
-                Button3 State: Off
+                Button3 State: 
             </p>
 
             <p style = "color: red" id="button4-state">
-                Button4 State: Off
+                Button4 State: 
             </p>
 
             <p style = "color: red" id="button5-state">
-                Button5 State: Off
+                Button5 State: 
             </p>
 
         </div>
@@ -412,7 +412,9 @@
 
   </div>
   <script>
-
+    
+    //skip buttons[0] so that array index matches button ID
+    buttons = [false, false, false, false, false, false];
     //false => off
     let button1State = false;
     let button2State = false;
@@ -473,14 +475,79 @@
       .catch(error => console.error('Error:', error));
     }
 
-    function updateStateDisplay(buttonID, state) {
+    function sendButtonUpdate(buttonID){
+      console.log("fetching: ButtonId: ",buttonID);
+      fetch('SERVER_ADDRESS', 
+      {
+        method: 'POST',
+        headers:{
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: 'buttonID='+buttonID
+       
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+      })
+      .catch(error => console.error('Error:', error));
+
+      updateStateDisplay();
+
+    }
+
+    function getButtonState(buttonID){
+      console.log("fetching ButtonPinState: ",buttonID);
+      fetch('ButtonPinStatus', 
+      {
+        method: 'POST',
+        headers:{
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: 'buttonID='+buttonID
+       
+      })
+      .then(response => response.json())
+      .then(data => {
+        //do something with data here
+        let result = JSON.parse(data);
+        console.log("result: ", result);
+        console.log("buttonstate: ", result.buttonState);
+        if(result.buttonState == "on"){
+          //pin enabled
+          buttons[buttonID] = true;
+        }
+        else if(result.buttonState == "off"){
+          //pin disabled
+          buttons[buttonID] = false;
+        }
+        else{
+          console.log("error retreiving pin status");
+        }
+        console.log('Success:', data);
+      })
+      .catch(error => console.error('Error:', error));
+    }
+
+
+    function updateStateDisplay() {
       //change to loop to set all others to off... also needs to init
-      let stateText = state ? "On" : "Off";
-      let color = state ? "rgb(200,200,77)" : "rgb(200,55,0)";
-      console.log("stateText: ", stateText);
-      const elem = document.getElementById(`button${buttonID[1]}-state`);
-      elem.textContent = `Button${buttonID[1]} State: ${stateText}`;
-      elem.style.color = color;
+
+      //state is Hex representation of pins bitwise
+      //get state from server
+
+      //update based on that state
+      for (let i = 1; i < buttons.length; i++){
+        getButtonState(i);
+        let stateText = buttons[i] ? "On" : "Off";
+        let color = buttons[i] ? "rgb(200,200,77)" : "rgb(200,55,0)";
+        console.log("stateText: ", stateText);
+        const elem = document.getElementById(`button${i}-state`);
+        elem.textContent = `Button${i} State: ${stateText}`;
+        elem.style.color = color;
+      }
+
+
     }
         
   </script>

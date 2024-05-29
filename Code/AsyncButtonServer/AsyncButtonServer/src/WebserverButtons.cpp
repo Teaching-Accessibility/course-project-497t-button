@@ -12,6 +12,7 @@
 #include "button.h"
 #include <ESPAsyncWebServer.h>
 #include "SPIFFS.h"
+#include <stdio.h>
 //#include <AsyncJson.h>
 //#include <ArduinoJson.h>
 
@@ -23,21 +24,17 @@ AsyncWebServer server(80);
 
 //store HTTP request
 String header;
+String buttonState[] = {"-1", "off", "off", "off", "off", "off"};
+// String button1State = "off";
+// String button2State = "off";
+// String button3State = "off";
+// String button4State = "off";
+// String button5State = "off";
 
-String button1State = "off";
-String button2State = "off";
-String button3State = "off";
-String button4State = "off";
-String button5State = "off";
 
-// Initialize map for webpage buttons to pins
-map<int, int> webpageMap;
 
-webpageMap[1] = 2;
-webpageMap[2] = 3;
-webpageMap[3] = 4;
-webpageMap[4] = 5;
-webpageMap[5] = 6;
+//Array holding button to pin mapping, [0] is -1 to match index with button ID
+int button[] = {-1,2,3,4,5,6};
 
 // Set LED GPIO
 const int ledPin = 2;
@@ -73,21 +70,21 @@ void setup()
   Serial.begin(115200);
 
   // Initialize the output variables as pin outputs
-  pinMode(button1, OUTPUT);
-  pinMode(button2, OUTPUT);
-  pinMode(button3, OUTPUT);
-  pinMode(button4, OUTPUT);
-  pinMode(button5, OUTPUT);
+  pinMode(button[1], OUTPUT);
+  pinMode(button[2], OUTPUT);
+  pinMode(button[3], OUTPUT);
+  pinMode(button[4], OUTPUT);
+  pinMode(button[5], OUTPUT);
   pinMode(Switch1, INPUT_PULLUP);
   pinMode(SwitLed, OUTPUT);
 
   // turn off pins asssociated with output[2..4]
   // outputs are active low
-  digitalWrite(button1, HIGH);
-  digitalWrite(button2, HIGH);
-  digitalWrite(button3, HIGH);
-  digitalWrite(button4, HIGH);
-  digitalWrite(button5, HIGH);
+  digitalWrite(button[1], HIGH);
+  digitalWrite(button[2], HIGH);
+  digitalWrite(button[3], HIGH);
+  digitalWrite(button[4], HIGH);
+  digitalWrite(button[5], HIGH);
   // init switch light to off, it is connected to comm on the other side
   digitalWrite(SwitLed, LOW);
 
@@ -160,6 +157,23 @@ void setup()
         request->send(200, "JSON", "{\"ButtonRecv\":\"" + message+ "\"}");
     });
   
+    server.on("/ButtonPinStatus", HTTP_POST, [](AsyncWebServerRequest *request){
+      String message;
+        if (request->hasParam(PARAM_MESSAGE, true)) {
+            Serial.println("Got pin status request");
+            message = request->getParam(PARAM_MESSAGE, true)->value();
+            Serial.println("message Recv: " + message);
+        } else {
+            message = "No message sent";
+        }
+        //get pin state and return it
+        String response;
+
+        response = buttonState[message.toInt()];
+        Serial.println("button state: " + response);
+
+        request->send(200, "JSON", "{\"buttonState\":\"" + response + "\"}");
+    });
   
   server.begin();
 
@@ -206,32 +220,19 @@ void loop()
 bool updatePins(String buttonID){
   Serial.println("updating state of button: " + buttonID);
 
-  if(webpageMap.count(buttonID.toInt()) == 0){ // If buttonID is not in map
-    Serial.println("ERROR: buttonID, " + buttonID + ", is not mapped to a pin");
-    Serial.println("Failed updating pins!");
-    return false;
-  }
 
-  int pinID = webpageMap[buttonID.toInt()];
+  int pinID = button[buttonID.toInt()];
 
   switchPin(pinID);
-
-  button1State = "off";
-  button2State = "off";
-  button3State = "off";
-  button4State = "off";
-  button5State = "off";
-  Serial.println("Turning all states off");
-  
-  switch(buttonID.toInt()) {
-    case 1: button1State = "on"; Serial.println("button1State on"); break;
-    case 2: button2State = "on"; Serial.println("button2State on"); break;
-    case 3: button3State = "on"; Serial.println("button3State on"); break;
-    case 4: button4State = "on"; Serial.println("button4State on"); break;
-    case 5: button5State = "on"; Serial.println("button5State on"); break;
-    default: Serial.println("ERROR: Invalid buttonID"); break;
+  Serial.println("loop?");
+  for (int i = 0; i < 6; i++){
+    Serial.print(i);
+    buttonState[i] = "off";
   }
+    
+  Serial.println("Turning all states off");
 
+  buttonState[buttonID.toInt()] = "on";
   Serial.println("successfully updated state of button: " + buttonID);
   return true;
 }
