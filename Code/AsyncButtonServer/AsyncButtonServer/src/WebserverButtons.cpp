@@ -88,6 +88,11 @@ void setup()
   // init switch light to off, it is connected to comm on the other side
   digitalWrite(SwitLed, LOW);
 
+  //Init button 1 to on, and pin 2 (b1) to enabled
+  buttonState[1] = "on";
+  switchPin(2);
+
+
   // Connect to Wi-Fi network with SSID and password
   Serial.print("Connecting to ");
   Serial.println(ssid);

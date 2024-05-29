@@ -421,6 +421,11 @@
     let button3State = false;
     let button4State = false;
     let button5State = false;
+    for (let i = 1; i < buttons.length; i++){
+        getButtonState(i);
+      }
+    sleep(500).then(() =>{updateStateDisplay();});
+
 
     function sendRequest(buttonID) 
     {
@@ -492,7 +497,10 @@
       })
       .catch(error => console.error('Error:', error));
 
-      updateStateDisplay();
+      for (let i = 1; i < buttons.length; i++){
+        getButtonState(i);
+      }
+      sleep(600).then(() =>{updateStateDisplay();});
 
     }
 
@@ -510,7 +518,8 @@
       .then(response => response.json())
       .then(data => {
         //do something with data here
-        let result = JSON.parse(data);
+        console.log("data: ", data)
+        let result = data; //JSON.parse(data);
         console.log("result: ", result);
         console.log("buttonstate: ", result.buttonState);
         if(result.buttonState == "on"){
@@ -528,7 +537,11 @@
       })
       .catch(error => console.error('Error:', error));
     }
-
+    //Need to learn how promisies work so that we can remove this. 
+    //https://www.sitepoint.com/delay-sleep-pause-wait/
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
     function updateStateDisplay() {
       //change to loop to set all others to off... also needs to init
@@ -536,9 +549,10 @@
       //state is Hex representation of pins bitwise
       //get state from server
 
+      
       //update based on that state
       for (let i = 1; i < buttons.length; i++){
-        getButtonState(i);
+        //getButtonState(i);
         let stateText = buttons[i] ? "On" : "Off";
         let color = buttons[i] ? "rgb(200,200,77)" : "rgb(200,55,0)";
         console.log("stateText: ", stateText);
