@@ -1,0 +1,697 @@
+body
+{
+    margin: 0;
+}
+
+.Container 
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: grey;
+  margin-left: 0;
+}
+.TopContainer 
+{
+  background-color: black;
+  width: 100%;
+  height: 25vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.TopText 
+{
+  color: white;
+  font-size: 4vmax;
+}
+.ContentContainer
+{
+    width: 100vw;
+    margin-top: 5vh;
+    display: flex;
+    flex-direction: row;
+    gap: 4.5vmax;
+    justify-content: center;
+    align-items: center;
+}
+
+.ControlContainer 
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: #303030;
+  color: white;
+  border-radius: 20px;
+  padding: 1vmax;
+  transition: transform 0.3s ease;
+}
+.InnerContainer {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+}
+html 
+{
+  background-color: #ffffff;
+  font-family: sans-serif;
+  display: block;
+  text-align: center;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+.InnerText 
+{
+  color: #d0d0d0;
+  font-size: 2vmax;
+}
+.ButtonGroupOrigin
+{
+    margin-top: 13vh;
+    position: absolute;
+}
+.StateContainer
+{
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    background-color: #303030;
+    gap: .5vmax;
+    padding: 1vmax;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.ImageStyle
+{
+    width: 25vmax;
+    height: 25vmax;
+}
+.ImageStyle:hover
+{
+    cursor: pointer;
+}
+
+.ButtonStyle
+{
+    position: absolute;
+    width: 3vmax;
+    height: 3vmax;
+    background: none;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.ButtonStyle:hover
+{
+  border: 2px solid red;
+}
+
+.Button1
+{
+    margin-left: -5vw; 
+    margin-top: 5.5vh;
+}
+
+.Button2
+{
+    margin-left: -2vw; 
+    margin-top: 1.25vh;
+}
+
+.Button3
+{
+    margin-left: 1.5vw;  
+    margin-top: 1.75vh;
+}
+
+.Button4
+{
+    margin-left: 5vw; 
+    margin-top: 7vh;
+}
+
+.Button5
+{
+    margin-left: 5vw; 
+    margin-top: 15vh;
+}
+
+.Line
+{
+    width: 100%;
+    border: 1px solid #505050;
+}
+
+@media(orientation: landscape)
+{
+    @media(max-aspect-ratio: 20/10)
+    {
+
+        .ButtonGroupOrigin
+        {
+            margin-top: 11vh;
+            position: absolute;
+        }
+        .Button1
+        {
+            margin-left: -4.5vw; 
+            margin-top: 4.75vh;
+        }
+
+        .Button2
+        {
+            margin-left: -1.5vw; 
+            margin-top: 1.1vh;
+        }
+
+        .Button3
+        {
+            margin-left: 1.5vw;  
+            margin-top: 1.4vh;
+        }
+
+        .Button4
+        {
+            margin-left: 5vw; 
+            margin-top: 5.5vh;
+        }
+        .Button5
+        {
+            margin-top: 13vh;
+        }
+
+    }
+
+    @media(max-aspect-ratio: 18/10) and (min-aspect-ratio: 17.5/10)
+    {
+        .ButtonGroupOrigin
+        {
+            margin-top: 11vh;
+            position: absolute;
+        }
+
+        .Button1
+        {
+            margin-left: -4.5vw; 
+            margin-top: 4.25vh;
+        }
+
+        .Button2
+        {
+            margin-left: -1.5vw; 
+            margin-top: 1.1vh;
+        }
+
+        .Button3
+        {
+            margin-left: 1.5vw;  
+            margin-top: 1.2vh;
+        }
+
+        .Button4
+        {
+            margin-left: 5vw; 
+            margin-top: 5.5vh;
+        }
+        .Button5
+        {
+            margin-top: 12vh;
+        }
+    }
+
+    @media(max-aspect-ratio: 17.5/10) and (min-aspect-ratio: 17/10)
+    {
+        .ButtonGroupOrigin
+        {
+            margin-top: 10.5vh;
+            position: absolute;
+        }
+
+        .Button1
+        {
+            margin-left: -4.5vw; 
+            margin-top: 4.25vh;
+        }
+
+        .Button2
+        {
+            margin-left: -1.5vw; 
+            margin-top: 1.1vh;
+        }
+
+        .Button3
+        {
+            margin-left: 1.5vw;  
+            margin-top: 1.2vh;
+        }
+
+        .Button4
+        {
+            margin-left: 5vw; 
+            margin-top: 5.5vh;
+        }
+        .Button5
+        {
+            margin-top: 12vh;
+        }
+    }
+
+    @media(max-aspect-ratio: 17/10) and (min-aspect-ratio: 16/10)
+    {
+        .ButtonGroupOrigin
+        {
+            margin-top: 10.5vh;
+            position: absolute;
+        }
+        .Button1
+        {
+            margin-left: -4.5vw; 
+            margin-top: 3.75vh;
+        }
+
+        .Button2
+        {
+            margin-left: -1.5vw; 
+            margin-top: 1.1vh;
+        }
+
+        .Button3
+        {
+            margin-left: 1.5vw;  
+            margin-top: 1.2vh;
+        }
+
+        .Button4
+        {
+            margin-left: 5vw; 
+            margin-top: 4.5vh;
+        }
+        .Button5
+        {
+            margin-top: 11vh;
+        }
+    }
+
+    @media(max-aspect-ratio: 16/10) and (min-aspect-ratio: 15/10)
+    {
+        .ButtonGroupOrigin
+        {
+            margin-top: 9vh;
+            position: absolute;
+        }
+
+        .Button1
+        {
+            margin-left: -4.5vw; 
+            margin-top: 4.5vh;
+        }
+
+        .Button2
+        {
+            margin-left: -1.5vw; 
+            margin-top: 1.25vh;
+        }
+
+        .Button3
+        {
+            margin-left: 1.5vw;  
+            margin-top: 1.75vh;
+        }
+        .Button4
+        {
+            margin-left: 5vw; 
+            margin-top: 5.25vh;
+        }
+        .Button5
+        {
+            margin-top: 12vh;
+        }
+    }
+
+    @media(max-aspect-ratio: 15/10) and (min-aspect-ratio: 14.5/10)
+    {
+        .ButtonGroupOrigin
+        {
+            margin-top: 9vh;
+            position: absolute;
+        }
+
+        .Button1
+        {
+            margin-left: -4.5vw; 
+            margin-top: 4vh;
+        }
+
+        .Button2
+        {
+            margin-left: -1.5vw; 
+            margin-top: 1.25vh;
+        }
+
+        .Button3
+        {
+            margin-left: 1.5vw;  
+            margin-top: 1.75vh;
+        }
+        .Button4
+        {
+            margin-left: 5vw; 
+            margin-top: 5vh;
+        }
+        .Button5
+        {
+            margin-top: 11vh;
+        }
+    }
+
+    @media(max-aspect-ratio: 14.5/10) and (min-aspect-ratio: 14/10)
+    {
+        .ButtonGroupOrigin
+        {
+            margin-top: 9vh;
+            position: absolute;
+        }
+
+        .Button1
+        {
+            margin-left: -4.5vw; 
+            margin-top: 3.5vh;
+        }
+
+        .Button2
+        {
+            margin-left: -1.5vw; 
+            margin-top: 1vh;
+        }
+
+        .Button3
+        {
+            margin-left: 1.5vw;  
+            margin-top: 1vh;
+        }
+        .Button4
+        {
+            margin-left: 5vw; 
+            margin-top: 4vh;
+        }
+        .Button5
+        {
+            margin-top: 10vh;
+        }
+    }
+
+    @media(max-aspect-ratio: 14/10) and (min-aspect-ratio: 13.5/10)
+    {
+        .ButtonGroupOrigin
+        {
+            margin-top: 8vh;
+            position: absolute;
+        }
+        .Button1
+        {
+            margin-left: -4.5vw; 
+            margin-top: 3vh;
+        }
+
+        .Button2
+        {
+            margin-left: -1.5vw; 
+            margin-top: 1.25vh;
+        }
+
+        .Button3
+        {
+            margin-left: 1.5vw;  
+            margin-top: 1.75vh;
+        }
+
+        .Button4
+        {
+            margin-left: 5vw; 
+            margin-top: 5vh;
+        }
+        .Button5
+        {
+            margin-top: 10.5vh;
+        }
+
+        .Button1
+        {
+            margin-top: 4vh;
+        }
+    }
+
+    @media(max-aspect-ratio: 13.5/10) and (min-aspect-ratio: 13/10)
+    {
+        .ButtonGroupOrigin
+        {
+            margin-top: 8vh;
+            position: absolute;
+        }
+        .Button1
+        {
+            margin-left: -4.5vw; 
+            margin-top: 3.5vh;
+        }
+
+        .Button2
+        {
+            margin-left: -1.5vw; 
+            margin-top: 1.25vh;
+        }
+
+        .Button3
+        {
+            margin-left: 1.5vw;  
+            margin-top: 1.75vh;
+        }
+
+        .Button4
+        {
+            margin-left: 5vw; 
+            margin-top:4.5vh;
+        }
+        .Button5
+        {
+            margin-top: 9.5vh;
+        }
+
+    }
+
+    @media(max-aspect-ratio: 13/10) and (min-aspect-ratio: 12/10)
+    {
+        .ButtonGroupOrigin
+        {
+            margin-top: 6.7vh;
+            position: absolute;
+        }
+        .Button1
+        {
+            margin-left: -4.5vw; 
+            margin-top: 3vh;
+        }
+
+        .Button2
+        {
+            margin-left: -1.5vw; 
+            margin-top: 1.75vh;
+        }
+
+        .Button3
+        {
+            margin-left: 1.5vw;  
+            margin-top: 1.75vh;
+        }
+
+        .Button4
+        {
+            margin-left: 5vw; 
+            margin-top: 5vh;
+        }
+        .Button5
+        {
+            margin-top: 9.5vh;
+        }
+
+    }
+
+    @media(max-aspect-ratio: 12/10) and (min-aspect-ratio: 11/10)
+    {
+      .ButtonGroupOrigin
+        {
+            margin-top: 6.7vh;
+            position: absolute;
+        }
+        .Button1
+        {
+            margin-left: -4.5vw; 
+            margin-top: 3.5vh;
+        }
+
+        .Button2
+        {
+            margin-left: -1.5vw; 
+            margin-top: 1.75vh;
+        }
+
+        .Button3
+        {
+            margin-left: 1.5vw;  
+            margin-top: 1.75vh;
+        }
+
+        .Button4
+        {
+            margin-left: 5vw; 
+            margin-top: 4.5vh;
+        }
+        .Button5
+        {
+            margin-top: 9vh;
+        }
+
+    }
+}
+
+@media(orientation: portrait)
+{
+    @media(min-aspect-ratio: 9/10)
+    {
+        .ButtonGroupOrigin
+        {
+            margin-top: 5vh;
+            position: absolute;
+        }
+        .Button4
+        {
+            margin-left: 5vw; 
+            margin-top: 4vh;
+        }
+        .Button5
+        {
+            margin-top: 8vh;
+        }
+
+        .Button1
+        {
+            margin-top: 4vh;
+        }
+    }
+
+    @media(max-aspect-ratio: 9/10) and (min-aspect-ratio: 7/10)
+    {
+        .ButtonGroupOrigin
+        {
+            margin-top: 5vh;
+            position: absolute;
+        }
+        .Button4
+        {
+            margin-left: 5vw; 
+            margin-top: 4vh;
+        }
+        .Button5
+        {
+            margin-top: 8vh;
+        }
+
+        .Button1
+        {
+            margin-top: 4vh;
+        }
+
+        .StateContainer
+        {
+            scale: .7;
+        }
+    }
+    @media(max-aspect-ratio: 7/10) and (min-aspect-ratio: 5/10)
+    {
+
+        .ButtonGroupOrigin
+        {
+            margin-top: 5vh;
+            position: absolute;
+        }
+        .Button1
+        {
+            margin-left: -9vw;
+            margin-top: 3.5vh;
+        }
+
+        .Button2
+        {
+            margin-left: -3vw; 
+            margin-top: 1.75vh;
+        }
+
+        .Button3
+        {
+            margin-left: 3vw;  
+            margin-top: 1.75vh;
+        }
+        .Button4
+        {
+            margin-left: 10.5vw; 
+            margin-top: 4vh;
+        }
+        .Button5
+        {
+            margin-top: 8vh;
+            margin-left: 9vw; 
+        }
+
+        .StateContainer
+        {
+            scale: .7;
+        }
+    }
+    @media(max-aspect-ratio: 5/10) and (min-aspect-ratio: 3/10)
+    {
+
+        .ButtonGroupOrigin
+        {
+            margin-top: 5vh;
+            position: absolute;
+        }
+        .Button1
+        {
+            margin-left: -15vw;
+            margin-top: 3.5vh;
+        }
+
+        .Button2
+        {
+            margin-left: -6vw; 
+            margin-top: 1.75vh;
+        }
+
+        .Button3
+        {
+            margin-left: 4vw;  
+            margin-top: 1.75vh;
+        }
+        .Button4
+        {
+            margin-left: 14.5vw; 
+            margin-top: 4vh;
+        }
+        .Button5
+        {
+            margin-top: 8vh;
+            margin-left: 16vw; 
+        }
+
+        .StateContainer
+        {
+            scale: .7;
+        }
+    }
+
+}

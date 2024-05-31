@@ -1,0 +1,25 @@
+body
+{
+    margin: 0;
+}
+
+html 
+{
+  background-color: #ffffff;
+  font-family: sans-serif;
+  display: block;
+  text-align: center;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.restrainBackground
+{
+    opacity:  .8;
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    z-index: 10;
+    pointer-events: none;
+}

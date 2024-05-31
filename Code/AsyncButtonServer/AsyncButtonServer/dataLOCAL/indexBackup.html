@@ -3,33 +3,26 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="/css/styles.css">
-  <link rel="stylesheet" href="/css/buttonStyles.css">
-  <link rel="stylesheet" href="/css/pageStyles.css">
-  <link rel="stylesheet" href="/css/containerStyles.css">
-  <link rel="stylesheet" href="/css/glowButton.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class = "restrainBackground"></div>
   <div class="Container">
     <div class="TopContainer">
-      <h1 class="TopText">PlayPal</h1>
-      <p class="InnerText">
-        <i>Enhance 
-        Linkimals accessibility without hardware modifications.</i>
-      </p>
+      <h1 class="TopText">PlayPal
+      <a class="InnerText" id = "toptext"><br/>Linkimals Button Project</a></h1>
     </div>
-    <div class = "Col">
-      <div class = "ContentContainer">
+    <div class = "ContentContainer">
         <div class="ControlContainer">
-            <img id="controlImage" class = "ImageStyle" src = '/images/hedgehog.png' />
-            <button onclick = "sendButtonUpdate(1)" class = "ButtonStyle MoveButton">Move</button>
-            <button onclick = "sendButtonUpdate(1)" class = "ButtonStyle DanceButton">Dance</button>
-            <button onclick = "sendButtonUpdate(1)" class = "ButtonStyle Button1"></button>
-            <button onclick = "sendButtonUpdate(2)" class = "ButtonStyle Button2"></button>
-            <button onclick = "sendButtonUpdate(3)" class = "ButtonStyle Button3"></button>
-            <button onclick = "sendButtonUpdate(4)" class = "ButtonStyle Button4"></button>
-            <button onclick = "sendButtonUpdate(5)" class = "ButtonStyle Button5"></button>
+            <img id="controlImage" class = "ImageStyle" src = './hedgehog.png' />
+
+            <div class = "ButtonGroupOrigin">
+                <button onclick = "sendButtonUpdate(1)" class = "ButtonStyle Button1"></button>
+                <button onclick = "sendButtonUpdate(2)" class = "ButtonStyle Button2"></button>
+                <button onclick = "sendButtonUpdate(3)" class = "ButtonStyle Button3"></button>
+                <button onclick = "sendButtonUpdate(4)" class = "ButtonStyle Button4"></button>
+                <button onclick = "sendButtonUpdate(5)" class = "ButtonStyle Button5"></button>
+            </div>
+
         </div>
 
         <div class = "StateContainer">
@@ -57,23 +50,13 @@
             </p>
 
         </div>
-      </div>
-
-      <div class = "StateContainer2">
-        <button id = "HL" class = "glowingButton">💡Highlight Button Positions</button>
-        <button id = "ITS" class = "glowingButton">⬆️ Increase Toy Size</button>
-      </div>
 
     </div>
 
-
-
   </div>
-  
   <script>
     
-
-    document.getElementById('ITS').addEventListener('click', function() 
+    document.getElementById('controlImage').addEventListener('click', function() 
     {
       const controlContainer = document.querySelector('.ControlContainer');
       const stateContainer = document.querySelector('.StateContainer');
@@ -82,19 +65,11 @@
       if (controlContainer.style.transform === 'scale(1.25)') 
       {
         controlContainer.style.transform = 'scale(1)';
+        stateContainer.style.transform = 'translateX(0)';
       } else {
         controlContainer.style.transform = 'scale(1.25)';
+        stateContainer.style.transform = 'translateX(50px)';
       }
-    });
-    
-    
-    document.getElementById('HL').addEventListener('click', function() 
-    {
-      document.querySelectorAll('.ButtonStyle').forEach(element => 
-      {
-        element.style.border === '' ? 
-        element.style.border = '5px solid red' : element.style.border = '';
-      });
     });
 
     //skip buttons[0] so that array index matches button ID
@@ -245,6 +220,8 @@
         elem.style.color = color;
         elem.style.fontWeight = buttons[i] ? "bold" : "default";
       }
+
+
     }
         
   </script>

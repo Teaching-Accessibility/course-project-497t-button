@@ -1,0 +1,104 @@
+.ButtonStyle
+{
+    position: absolute;
+    width: 3vmax;
+    height: 3vmax;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.ButtonStyle:hover
+{
+    scale: 1.5;
+}
+
+.MoveButton
+{
+    left: 38%;
+    top: 73.6%;
+    width: 3.35vmax;
+    height: 1.5vmax;
+    border-radius: 40px;
+    background: rgb(256, 256, 256, .8);
+}
+
+.DanceButton
+{
+    left: 19.5%;
+    top: 15.6%;
+    width: 3.35vmax;
+    height: 1.5vmax;
+    border-radius: 40px;
+    background: rgb(256, 256, 256, .8);
+
+    rotate: -30deg;
+}
+
+.Button1
+{
+    left: 25%;
+    top: 28.6%;
+    width: 3.35vmax;
+    height: 3vmax;
+
+    background: url("../images/1.png");
+    background-size:cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+
+
+.Button2
+{
+    background: url('../images/2.png');
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    left: 35.25%;
+    top: 21.6%;
+
+    width: 3.5vmax;
+    height: 3.5vmax;
+
+}
+
+.Button3
+{
+    background: url('../images/3.png');
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 3.25vmax;
+    height: 3.25vmax;
+    left: 45.6%;
+    top: 23.8%;
+}
+
+.Button4
+{
+    background: url('../images/4.png');
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    left: 58%;
+    top: 30.8%;
+    border-radius: 10px;
+}
+
+.Button5
+{
+    background: url('../images/5.png');
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    width: 4vmax;
+    height: 4vmax;
+
+    left: 57.5%;
+    top: 41.8%;
+}

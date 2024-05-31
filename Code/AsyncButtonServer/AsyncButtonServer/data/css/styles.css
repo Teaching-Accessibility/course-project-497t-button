@@ -1,0 +1,43 @@
+@keyframes rainbow {
+    0% { color: #FF6347; }    /* Tomato */
+    16.7% { color: #FF4500; }  /* OrangeRed */
+    33.3% { color: #FFD700; }  /* Gold */
+    50% { color: #32CD32; }    /* LimeGreen */
+    66.7% { color: #1E90FF; }  /* DodgerBlue */
+    83.3% { color: #BA55D3; }  /* MediumOrchid */
+    100% { color: #FF69B4; }   /* HotPink */
+  }
+  .TopText 
+  {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 4vmax;
+    font-weight: bold;
+    animation: rainbow 3s infinite linear alternate;
+
+  }
+
+.InnerText 
+{
+  color: #d0d0d0;
+  font-size: 1.25vmax;
+  width: 26vw;
+  text-align: left;
+}
+.ButtonGroupOrigin
+{
+    margin-top: 13vh;
+    position: absolute;
+}
+
+.ImageStyle
+{
+    width: 25vmax;
+    height: 25vmax;
+}
+
+
+.Line
+{
+    width: 100%;
+    border: 1px solid #505050;
+}
