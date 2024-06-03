@@ -160,7 +160,7 @@ module will outweigh the benifits of using the FYK58 mainboard.
 
 # Individual Contributions (Comprehensive)
 
-Cameron Warnick
+## Cameron Warnick  
 • Learned how the hardware functions and conducted preliminary project research, despite hardware-based projects being outside my field of specialization.  
 • Wrote the entire Project Proposal.  
 • Contributed to the Button Design and Requirements Template.  
