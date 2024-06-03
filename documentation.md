@@ -182,4 +182,4 @@ module will outweigh the benifits of using the FYK58 mainboard.
 • Revamped background: moving colored gradient with dark filter overlaid, keeping it un-intrusive while highlighting interactive elements.  
 • Re-implemented glowing buttons, added a dynamic gradient for the title (PlayPal).   
 • Refactored HTML/CSS layout  
-• Refactored HTML/CSS layout  
+• Added "move" and "dance" buttons  
