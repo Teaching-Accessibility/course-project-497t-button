@@ -205,6 +205,11 @@ void setup()
     request->send(SPIFFS, "/css/stylesBackup.css", String(), false);
   });
 
+   //toggleButtonStyles
+  server.on("/css/toggleButtonStyles.css", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/css/toggleButtonStyles.css", String(), false);
+  });
+
 
       // button1 pressed
   server.on("/update1", HTTP_GET, [](AsyncWebServerRequest *request){
@@ -243,6 +248,20 @@ void setup()
 
         request->send(200, "JSON", "{\"buttonState\":\"" + response + "\"}");
     });
+
+    server.on("/toggleSwitch", HTTP_POST, [](AsyncWebServerRequest *request) {
+    String status;
+    if (request->hasParam("status", true)) {
+      status = request->getParam("status", true)->value();
+      Serial.println("Toggle Switch status: " + status);
+      if (status == "Sequential Mode: ON") {
+        sequentialMode = true;
+      } else {
+        sequentialMode = false;
+      }
+    }
+    request->send(200, "text/plain", "OK");
+  });
   
   server.begin();
 

@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/css/pageStyles.css">
   <link rel="stylesheet" href="/css/containerStyles.css">
   <link rel="stylesheet" href="/css/glowButton.css">
+  <link rel="stylesheet" href="/css/toggleButtonStyles.css">
 </head>
 <body>
   <div class = "restrainBackground"></div>
@@ -18,6 +19,13 @@
         <i>Enhance 
         Linkimals accessibility without hardware modifications.</i>
       </p>
+    </div>
+    <div class="ToggleContainer">
+      <label class="switch">
+        <input type="checkbox" id="toggleSwitch">
+        <span class="slider round"></span>
+      </label>
+      <span id="toggleStatus">Sequential Mode: OFF</span>
     </div>
     <div class = "Col">
       <div class = "ContentContainer">
@@ -254,6 +262,18 @@
       }
     }
         
+  </script>
+  <script>
+    document.getElementById('toggleSwitch').addEventListener('change', function() {
+        var status = this.checked ? 'Sequential Mode: ON' : 'Sequential Mode: OFF';
+        document.getElementById('toggleStatus').textContent = status;
+        
+        // Send the toggle status to the server
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/toggleSwitch', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send('status=' + status);
+    });
   </script>
 </body>
 </html>
