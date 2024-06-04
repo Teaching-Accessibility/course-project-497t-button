@@ -280,30 +280,24 @@ void loop()
         }
       }
       else{
-        Serial.println("button in timeout, ignoring press");
+        Serial.println("buttons are in timeout, ignoring press");
       }
     if(digitalRead(Switch[1]) == LOW)
     {
       Serial.print("press on switch1 detected: ");
       if(!timeout){
-        if(sequentialMode == true){
-            previousTime = currentTime;
-            Serial.println("Sequential mode");
-            buttonPressedSequential(currentTime, previousTime, 1);
-        }
-        else{
             previousTime = currentTime;
             Serial.println("Standard mode");
             buttonPressedStandard(currentTime, previousTime, 1);
             timeout = true;
         }
-      }
-      else{
-        Serial.println("button in timeout, ignoring press");
-      }
+    }
+    else{
+      Serial.println("buttons are in timeout, ignoring press");
     }
   }
 }
+
 
 bool updatePins(int inputIndex, String buttonID){
   Serial.println("updating state of button: " + buttonID);
