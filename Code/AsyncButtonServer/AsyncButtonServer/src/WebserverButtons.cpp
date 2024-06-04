@@ -28,24 +28,17 @@ AsyncWebServer server(80);
 
 //store HTTP request
 String header;
-String buttonState[] = {"-1", "off", "off", "off", "off", "off"};
-// String button1State = "off";
-// String button2State = "off";
-// String button3State = "off";
-// String button4State = "off";
-// String button5State = "off";
+String buttonState[] = {"-1", "off", "off", "off", "off", "off", "off", "off", "off"};
 
-
-
-//Array holding button to pin mapping, [0] is -1 to match index with button ID
-int button[] = {-1,2,3,4,5,6};
+//Array holding button to pin mapping, [0] is -1 to match index with button ID, [6] skips 7 as that is the switch pin
+int button[] = {-1,2,3,4,5,6,8,9,10};
 
 // Set LED GPIO
 const int ledPin = 2;
 // Stores LED state
 String ledState;
 // Set switch GPIO
-const int Switch1 = 7;
+const int Switch[] = {7,11};
 
 
 unsigned long currentTime = millis();
@@ -58,7 +51,7 @@ bool timeout = false;
 unsigned long buttonTimeoutTime = 150;
 
 //method declarations
-bool updatePins(String);
+bool updatePins(int, String);
   // Replaces placeholder with Pin state value
 
 const char* PARAM_MESSAGE = "buttonID";
@@ -72,12 +65,16 @@ void setup()
   Serial.begin(115200);
 
   // Initialize the output variables as pin outputs
-  pinMode(button[1], OUTPUT);
-  pinMode(button[2], OUTPUT);
-  pinMode(button[3], OUTPUT);
-  pinMode(button[4], OUTPUT);
-  pinMode(button[5], OUTPUT);
-  pinMode(Switch1, INPUT_PULLUP);
+  pinMode(button[1], OUTPUT); // GPIO1, button 1
+  pinMode(button[2], OUTPUT); // GPIO2, button 2
+  pinMode(button[3], OUTPUT); // GPIO3, button 3
+  pinMode(button[4], OUTPUT); // GPIO4, button 4
+  pinMode(button[5], OUTPUT); // GPIO5, button 5
+  pinMode(button[6], OUTPUT); // SP1, move
+  pinMode(button[7], OUTPUT); // SP2, dance
+  pinMode(button[8], OUTPUT); // SP3
+  pinMode(Switch[0], INPUT_PULLUP); // Main PlayPal button
+  pinMode(Switch[1], INPUT_PULLUP); // External switch input
   pinMode(SwitLed, OUTPUT);
   pinMode(LED_RED, OUTPUT);
   pinMode(LED_GREEN, OUTPUT);
@@ -85,11 +82,14 @@ void setup()
 
   // turn off pins asssociated with output[2..4]
   // outputs are active low
-  digitalWrite(button[1], HIGH);
-  digitalWrite(button[2], HIGH);
-  digitalWrite(button[3], HIGH);
-  digitalWrite(button[4], HIGH);
-  digitalWrite(button[5], HIGH);
+  digitalWrite(button[1], HIGH); // GPIO1, button 1
+  digitalWrite(button[2], HIGH); // GPIO2, button 2
+  digitalWrite(button[3], HIGH); // GPIO3, button 3
+  digitalWrite(button[4], HIGH); // GPIO4, button 4
+  digitalWrite(button[5], HIGH); // GPIO5, button 5
+  digitalWrite(button[6], HIGH); // SP1, move
+  digitalWrite(button[7], HIGH); // SP2, dance
+  digitalWrite(button[8], HIGH); // SP3
   // init switch light to off, it is connected to comm on the other side
   digitalWrite(SwitLed, LOW);
 
@@ -98,7 +98,7 @@ void setup()
 
   //Init button 1 to on, and pin 2 (b1) to enabled
   buttonState[1] = "on";
-  switchPin(2);
+  switchPin(0, 2);
   //Set Status LED to Red
 
 
@@ -122,11 +122,6 @@ void setup()
   //Set Status LED to dim green
 
   analogWrite(LED_RED, 255);
-
-
-
-
-
 
   
   //Server setup
@@ -223,7 +218,7 @@ void setup()
       String message;
         if (request->hasParam(PARAM_MESSAGE, true)) {
             message = request->getParam(PARAM_MESSAGE, true)->value();
-            updatePins(message);
+            updatePins(0, message);
         } else {
             message = "No message sent";
         }
@@ -268,19 +263,38 @@ void loop()
         timeout = false;
     }
 
-    if(digitalRead(Switch1) == LOW)
+    if(digitalRead(Switch[0]) == LOW)
     {
-      Serial.print("press detected: ");
+      Serial.print("press on switch0 detected: ");
       if(!timeout){
         if(sequentialMode == true){
             previousTime = currentTime;
             Serial.println("Sequential mode");
-            buttonPressedSequential(currentTime, previousTime);
+            buttonPressedSequential(currentTime, previousTime, 0);
         }
         else{
             previousTime = currentTime;
             Serial.println("Standard mode");
-            buttonPressedStandard(currentTime, previousTime);
+            buttonPressedStandard(currentTime, previousTime, 0);
+            timeout = true;
+        }
+      }
+      else{
+        Serial.println("button in timeout, ignoring press");
+      }
+    if(digitalRead(Switch[1]) == LOW)
+    {
+      Serial.print("press on switch1 detected: ");
+      if(!timeout){
+        if(sequentialMode == true){
+            previousTime = currentTime;
+            Serial.println("Sequential mode");
+            buttonPressedSequential(currentTime, previousTime, 1);
+        }
+        else{
+            previousTime = currentTime;
+            Serial.println("Standard mode");
+            buttonPressedStandard(currentTime, previousTime, 1);
             timeout = true;
         }
       }
@@ -288,18 +302,18 @@ void loop()
         Serial.println("button in timeout, ignoring press");
       }
     }
-
+  }
 }
 
-bool updatePins(String buttonID){
+bool updatePins(int inputIndex, String buttonID){
   Serial.println("updating state of button: " + buttonID);
 
 
   int pinID = button[buttonID.toInt()];
 
-  switchPin(pinID);
+  switchPin(inputIndex, pinID);
   Serial.println("loop?");
-  for (int i = 0; i < 6; i++){
+  for (int i = 0; i < 9; i++){
     Serial.print(i);
     buttonState[i] = "off";
   }
@@ -310,4 +324,3 @@ bool updatePins(String buttonID){
   Serial.println("successfully updated state of button: " + buttonID);
   return true;
 }
-
