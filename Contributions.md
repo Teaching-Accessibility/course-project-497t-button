@@ -40,6 +40,7 @@
 - sequential mode logic
 - readme file
 - documentation on webserverbuttons and button.h
+- created user manual
 - logic and uml diagrams
 - button press logic
 - wrote situations in project proposal
