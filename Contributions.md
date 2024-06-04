@@ -43,5 +43,5 @@
 - created user manual
 - logic and uml diagrams
 - button press logic
-- wrote situations in project proposal
+- wrote situations in design and requirements
 
