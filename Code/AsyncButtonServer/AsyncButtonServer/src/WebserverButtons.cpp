@@ -79,6 +79,9 @@ void setup()
   pinMode(button[5], OUTPUT);
   pinMode(Switch1, INPUT_PULLUP);
   pinMode(SwitLed, OUTPUT);
+  pinMode(LED_RED, OUTPUT);
+  pinMode(LED_GREEN, OUTPUT);
+
 
   // turn off pins asssociated with output[2..4]
   // outputs are active low
@@ -90,9 +93,13 @@ void setup()
   // init switch light to off, it is connected to comm on the other side
   digitalWrite(SwitLed, LOW);
 
+  digitalWrite(LED_RED, LOW);
+  
+
   //Init button 1 to on, and pin 2 (b1) to enabled
   buttonState[1] = "on";
   switchPin(2);
+  //Set Status LED to Red
 
 
   // Connect to Wi-Fi network with SSID and password
@@ -112,8 +119,9 @@ void setup()
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
   
+  //Set Status LED to dim green
 
-
+  analogWrite(LED_RED, 255);
 
 
 
