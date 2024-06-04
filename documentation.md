@@ -9,23 +9,44 @@ Hardware: Steven Grubb 5.15.24
 
 ## WebserverButtons.ino
 ### Global Variables
-- String button#State - Either "off" or "on", holds the current state of that button
-- const int button# - constant that holds the pin number for the specified button
+- String buttonState[] - Either "off" or "on", array that holds the current state of that button, size = number of buttons
+- int button[] - array that holds the pin number for the specified button
+- const int ledPin - contains pin number of led
+- String ledState - hold state of led, either "off" or "on"
+- const int Switch1 - holds the value of the pin the switch is plugged into
 - unsigned long currentTime - holds the current time, updated using millis() function
 - unsigned long previousTime - used as a temp holder for time, used in delta time calculations
-- const long timeoutTime - constant holding the time (in ms) for user connection time out
+- bool timeout - tells whether or not button is currently in timeout
 - bool sequentialMode - tells whether the code is in sequentialMode, either true or false
+- unsigned long buttonTimeoutTime - timeout time for button, in ms, increase for larger timeout
 
 ### Features implemented
 - Initialize Arduino pins
 - Connect to WiFi
-- Create local webserver
+- Create local async webserver
 - Allow user connection
 - Detects button presses on serial monitor
 - Change switch button number via user web page interaction
 - Only one state can be "on" at one time
 - When the Switch is pressed, the chosen button is activated on the toy
 
+### Update Pins Function
+updatePins(String buttonID)
+
+
+Description-
+    
+    Updates the active set pin to the pin selected by the user on the webpage
+
+Parameters-
+
+    buttonID - the pin to swap to
+
+Returns-
+
+    true if successful
+    false if unsuccessful
+    
 
 ## button.h
 ### Global Variables
@@ -95,23 +116,41 @@ Returns-
     N/A
 
 
-### Change Timeout Function
-changeTimeout(int newTime)
+### Button Pressed Function (Standard)
+buttonPressedStandard(unsigned long currentTime, unsigned long previousTime)
 
 
 Description-
-    
-    Changes the current buttonTimeoutTime to the new specified time
 
+    Activates the pin, waits 150ms, then deactivates it and sets the button to timeout
 
 Parameters-
-    
-    newTime - The new time you want the timeout to be
 
+    currentTime - Holds the current time the program has been running
+    previousTime - Used to hold temp time values to measure change in time
 
 Returns-
-    
+
     N/A
+
+
+### Button Pressed Function (Sequential Mode)
+buttonPressedSequential(unsigned long currentTime, unsigned long previousTime)
+
+
+Description-
+
+    Counts button presses from user (500ms window) and then activates that pin
+
+Parameters-
+
+    currentTime - Holds the current time the program has been running
+    previousTime - Used to hold temp time values to measure change in time
+
+Returns-
+
+    N/A
+
 
 # UI Documentation
 
