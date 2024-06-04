@@ -22,46 +22,52 @@
     <div class = "Col">
       <div class = "ContentContainer">
         <div class="ControlContainer">
-            <img id="controlImage" class = "ImageStyle" src = '/images/hedgehog.png' />
-            <button onclick = "sendButtonUpdate(1)" class = "ButtonStyle MoveButton">Move</button>
-            <button onclick = "sendButtonUpdate(1)" class = "ButtonStyle DanceButton">Dance</button>
-            <button onclick = "sendButtonUpdate(1)" class = "ButtonStyle Button1"></button>
-            <button onclick = "sendButtonUpdate(2)" class = "ButtonStyle Button2"></button>
-            <button onclick = "sendButtonUpdate(3)" class = "ButtonStyle Button3"></button>
-            <button onclick = "sendButtonUpdate(4)" class = "ButtonStyle Button4"></button>
-            <button onclick = "sendButtonUpdate(5)" class = "ButtonStyle Button5"></button>
+            <img id="controlImage" alt = "Linkimals hedgehog toy" class = "ImageStyle" src = '/images/hedgehog.png' />
+            <button aria-label = "Move Button" onclick = "sendButtonUpdate(6)" class = "ButtonStyle MoveButton">Move</button>
+            <button aria-label = "Dance Button" onclick = "sendButtonUpdate(7)" class = "ButtonStyle DanceButton">Dance</button>
+            <button aria-label = "Button 1" onclick = "sendButtonUpdate(1)" class = "ButtonStyle Button1"></button>
+            <button aria-label = "Button 2" onclick = "sendButtonUpdate(2)" class = "ButtonStyle Button2"></button>
+            <button aria-label = "Button 3" onclick = "sendButtonUpdate(3)" class = "ButtonStyle Button3"></button>
+            <button aria-label = "Butotn 4" onclick = "sendButtonUpdate(4)" class = "ButtonStyle Button4"></button>
+            <button aria-label = "Button 5" onclick = "sendButtonUpdate(5)" class = "ButtonStyle Button5"></button>
         </div>
 
         <div class = "StateContainer">
 
             <p style = "color: red; font-size: 1vmax" id="button1-state">
-                Button1 State: 
+                Button 1 State: 
             </p>
-
             <hr class = "Line" />
-
             <p style = "color: red; font-size: 1vmax" id="button2-state">
-                Button2 State: 
+                Button 2 State: 
             </p>
             <hr class = "Line" />
             <p style = "color: red; font-size: 1vmax" id="button3-state">
-                Button3 State: 
+                Button 3 State: 
             </p>
             <hr class = "Line" />
             <p style = "color: red; font-size: 1vmax" id="button4-state">
-                Button4 State: 
+                Button 4 State: 
             </p>
             <hr class = "Line" />
             <p style = "color: red; font-size: 1vmax" id="button5-state">
-                Button5 State: 
+                Button 5 State: 
+            </p>
+            <hr class = "Line" />
+            <p style = "color: red; font-size: 1vmax" id="button6-state">
+                Button 6 State: 
+            </p>
+            <hr class = "Line" />
+            <p style = "color: red; font-size: 1vmax" id="button7-state">
+                Button 7 State: 
             </p>
 
         </div>
       </div>
 
       <div class = "StateContainer2">
-        <button id = "HL" class = "glowingButton">💡Highlight Button Positions</button>
-        <button id = "ITS" class = "glowingButton">⬆️ Increase Toy Size</button>
+        <button id = "HL" class = "glowingButton"> U+1F4A1 Highlight Button Positions</button>
+        <button id = "ITS" class = "glowingButton"> U+2B06 Increase Toy Size</button>
       </div>
 
     </div>
@@ -105,6 +111,7 @@
     let button3State = false;
     let button4State = false;
     let button5State = false;
+
     for (let i = 1; i < buttons.length; i++){
         getButtonState(i);
       }
@@ -184,7 +191,7 @@
       for (let i = 1; i < buttons.length; i++){
         getButtonState(i);
       }
-      sleep(600).then(() =>{updateStateDisplay();});
+      sleep(660).then(() =>{updateStateDisplay();});
 
     }
 

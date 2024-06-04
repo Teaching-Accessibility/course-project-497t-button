@@ -17,8 +17,10 @@
 //#include <ArduinoJson.h>
 
 // Replace with your network credentials
-// const char* ssid = "TestNet_24";
-// const char* password = "Redacted__Redacted";
+ //const char* ssid = "TestNet_24";
+ //const char* password = "Redacted__Redacted";
+
+//credentials used for demo network
 const char* ssid = "Linkimals_Net";
 const char* password = "uh887jw3t0";
 
@@ -130,18 +132,77 @@ void setup()
     Serial.println("SPIFFS mounted");
   }
 
-
-  
-  //image setup
-  server.on("/hedgehog.png", HTTP_GET, [](AsyncWebServerRequest *request){
-  request->send(SPIFFS, "/hedgehog.png", "image/png");
-  });
   
     // Route for root / web page
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(SPIFFS, "/index.html", String(), false);
   });
+
+// Images
+
+    //hedgehog
+  server.on("/images/hedgehog.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/images/hedgehog.png", String(), false);
+  });
   
+    //button1
+  server.on("/images/1.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/images/1.png", String(), false);
+  });
+
+      //button 2
+  server.on("/images/2.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/images/2.png", String(), false);
+  });
+
+      //button 3
+  server.on("/images/3.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/images/3.png", String(), false);
+  });
+
+      //button 4
+  server.on("/images/4.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/images/4.png", String(), false);
+  });
+
+      //button 5
+  server.on("/images/5.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/images/5.png", String(), false);
+  });
+  
+//css stylesheets
+
+      //buttonStyles
+  server.on("/css/buttonStyles.css", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/css/buttonStyles.css", String(), false);
+  });
+
+    //containerStyles
+  server.on("/css/containerStyles.css", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/css/containerStyles.css", String(), false);
+  });
+
+    //glowButton
+  server.on("/css/glowButton.css", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/css/glowButton.css", String(), false);
+  });
+    
+    //pageStyles
+  server.on("/css/pageStyles.css", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/css/pageStyles.css", String(), false);
+  });
+
+    //styles
+  server.on("/css/styles.css", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/css/styles.css", String(), false);
+  });
+
+    //stylesBackup
+  server.on("/css/stylesBackup.css", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/css/stylesBackup.css", String(), false);
+  });
+
+
       // button1 pressed
   server.on("/update1", HTTP_GET, [](AsyncWebServerRequest *request){
     //request->send(SPIFFS, "/index.html", String(), false);

@@ -9,10 +9,11 @@
   }
   .TopText 
   {
+    color: #d0d0d0;
     font-family: 'Courier New', Courier, monospace;
     font-size: 4vmax;
     font-weight: bold;
-    animation: rainbow 3s infinite linear alternate;
+    /*animation: rainbow 3s infinite linear alternate;*/
 
   }
 
