@@ -9,13 +9,18 @@ Linkimals line of childrens toys. This connection is done wirelessly, so that th
 
 Further information on exact implementations can be found in our [documentation](documentation.md)
 
-### Installation:
-1. Install [Arduino IDE](https://www.arduino.cc/en/software)
-2. Install all zip of repo
-3. Extract contents to a folder
-4. Open /Code/WebserverButtons/WebserverButtons.ino in Arduino IDE
-5. Connect Arduino ESP32 to computer
-6. Upload files from Arduino IDE to the ESP32
+1.	Install [Arduino IDE](https://www.arduino.cc/en/software)
+2.	Install the latest release of [PlayPal software](https://github.com/Teaching-Accessibility/course-project-497t-button/releases)
+3.	Extract the contents of the release to a safe location
+4.	Run Arduino IDE
+5.	Open the WebserverButtons.cpp file in Arduino IDE
+    a. Located in the extracted files at Code/AsyncButtonServer/AsyncButtonServer/src/WebserverButtons.cpp
+6.	Update the credentials found on line 24 and 25 with your network credentials
+7.	Upload the files to your Arduino ESP32
+8.	Turn on PlayPal
+9.	An LED will light up to signify a WiFi connection
+10.	Enjoy
+
 
 ### Bugs and Issues:
 [PlayPal Issue Reporting](https://github.com/Teaching-Accessibility/course-project-497t-button/issues)
