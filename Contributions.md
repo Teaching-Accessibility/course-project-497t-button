@@ -33,3 +33,14 @@
 - GET/POST request handling both js side and server side
 - SPIFFS implementation
 
+## Jack Stephens
+- Button state toggling
+- All of button.h file
+- button switching pins logic
+- sequential mode logic
+- readme file
+- documentation on webserverbuttons and button.h
+- logic and uml diagrams
+- button press logic
+- wrote situations in project proposal
+
