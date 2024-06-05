@@ -12,6 +12,7 @@
     max-width: 240px; /* Set a max width for the container */
     color: white;
     opacity: 1;
+    z-index: 15
 }
 
 .switch {
